@@ -1,0 +1,27 @@
+.primary {
+    color: rgb(255, 255, 255);
+    background: linear-gradient(rgb(255, 136, 0), orangered);
+    border: none;
+    outline: none;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.primary:hover {
+    cursor: pointer;
+    border-radius: 17px;
+}
+
+
+.gost {
+    background: none;
+    outline: none;
+    border: none;
+    color: orangered;
+}
+
+.gost:hover{
+    cursor: pointer;
+    color:rgb(255, 91, 31);
+}

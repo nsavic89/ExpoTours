@@ -1,0 +1,122 @@
+.wrapper {
+    min-height: 100vh;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 3;
+    padding: 0 10%;
+}
+
+@media only screen and (min-width: 1400px) {
+    .wrapper {
+        padding: 0 20%;
+    }
+}
+
+.wrapper > div {
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+}
+
+.btnNav {
+    background: linear-gradient(rgb(248, 248, 248), rgb(220, 220, 220));
+    outline: none;
+    border: 1px solid rgb(255, 19, 19);
+    border-radius: 25px;
+    height: 50px;
+    margin: 0 0.2rem;
+    font-weight: bold;
+    flex-grow: 3;
+    color:rgb(74, 74, 74);
+}
+
+.btnNav:hover {
+    cursor: pointer;
+    color:rgb(34, 34, 34);
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid orangered;
+}
+
+.btnPrimary {
+    background: linear-gradient(rgb(255, 123, 0), orangered);
+    color: white;
+    outline: none;
+    border: none;
+    border-radius: 25px;
+    height: 40px;
+    padding: 0 1rem;
+    margin: 0 0.2rem;
+    font-weight: bold;
+    flex-grow: 3;
+}
+
+.btnPrimary:hover{
+    cursor: pointer;
+}
+
+.btnSecondary {
+    background: linear-gradient(rgb(236, 236, 236), rgb(212, 212, 212));
+    color: rgb(83, 83, 83);
+    outline: none;
+    border: none;
+    border-radius: 25px;
+    height: 40px;
+    padding: 0 1rem;
+    margin: 0 0.2rem;
+    font-weight: bold;
+    flex-grow: 3;
+}
+
+.btnSecondary:hover {
+    cursor: pointer;
+    color:rgb(245, 21, 21);
+}
+
+.btnDashed {
+    padding: 0 1rem;
+    height: 30px;
+    outline: none;
+    border: 1px dashed rgb(231, 73, 0);
+    border-radius: 15px;
+    color:rgb(231, 73, 0);
+}
+
+.btnDanger {
+    color: white;
+    border-radius: 5px;
+    background: tomato;
+    border: none;
+}
+
+.form {
+    background: rgb(250, 250, 245);
+    padding: 2rem;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table > thead {
+    text-align: left;
+    height: 30px;
+    border-bottom: 1px solid silver;
+}
+
+.tableCell {
+    min-height: 30px;
+    padding: 5px;
+}
