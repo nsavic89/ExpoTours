@@ -4,7 +4,6 @@ import { useTranslations } from 'use-intl'
 import styles from '../styles/home.module.css'
 import buttonStyles from '../styles/button.module.css'
 import MySelector from './MySelector';
-import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
@@ -111,7 +110,7 @@ function Events(props) {
 
     const eventsWrapper = (
         <div className={styles.eventsContainer}>
-                <div style={{ paddingTop: 150 }}>
+                <div style={{ paddingTop: 190 }}>
                     <button className={buttonStyles.gost} style={{ fontSize: 38 }}
                         onClick={() => eventsListRef.current.scrollLeft -= 260}
                     >
@@ -160,7 +159,7 @@ function Events(props) {
                     }
                 </div>
 
-                <div style={{ paddingTop: 150 }}>
+                <div style={{ paddingTop: 190 }}>
                     <button className={buttonStyles.gost} style={{ fontSize: 38 }}
                         onClick={() => eventsListRef.current.scrollLeft += 260}
                     >

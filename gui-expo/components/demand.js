@@ -14,13 +14,14 @@ export default function Demand() {
 
     return (
         <div className={ styles.arrange }>
-            <h1>{t('demand.title')}</h1><br/>
+            
             <Form
                 name="form"
-                wrapperCol={{ span: 8 }}
-                labelCol={{ span: 8 }}
-                style={{ width: '100%' }}
+                wrapperCol={{ span: 14 }}
+                labelCol={{ span: 6}}
+                className={ styles.demandForm }
             >
+                <h1>{t('demand.title')}</h1>
                 <Form.Item
                     name="name"
                     required={true}
@@ -161,7 +162,7 @@ export default function Demand() {
                     <Input.TextArea />
                 </Form.Item>
 
-                <Form.Item wrapperCol={{ offset: 8 }}>
+                <Form.Item wrapperCol={{ offset: 6 }}>
                     <button type="submit" className={btnStyles.primary}>
                         {t('demand.button')}
                     </button>

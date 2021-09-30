@@ -13,8 +13,8 @@
     },
     "home": {
         "phone": "Phone",
-        "discover": "Discover",
-        "ask": "Arrange a Trip",
+        "discover": "Discover our offers",
+        "ask": "Plan a trip with us",
         "no-events": "0 found",
         "no-events-found-alert": "No events found for the selected criteria. Try selecting different month/year or theme."
     },
@@ -56,6 +56,7 @@
         "phone": "Phone",
         "address": "Address",
         "addressPlaceholder": "Street & No, City",
+        "alone": "I travel alone",
         "number-of-people": "Number of people joining",
         "person": "Person",
         "full-name": "First name / Last Name",

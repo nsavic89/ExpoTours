@@ -12,7 +12,7 @@ export default function About() {
     return (
         <Layout>
             <div className={styling.main}>
-                <div className={styling.shadowBoxDiv}>
+                <div className={styling.shadowBoxDiv} style={{ fontSize: 16 }}>
                     <p>
                         Expo-tours.ch vous propose la location d'AUTOCARS grand luxe sans signe
                         distinctif avec chauffeurs qualifiés. Nous sommes spécialisés dans

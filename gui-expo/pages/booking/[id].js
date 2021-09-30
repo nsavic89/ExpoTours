@@ -1,5 +1,5 @@
 
-import { Form, Input, InputNumber, message, Select } from "antd"
+import { Checkbox, Form, Input, InputNumber, message, Select } from "antd"
 import { useTranslations } from "next-intl"
 import Layout from "../../components/layout"
 import styling from "../../styles/booking.module.css"
@@ -14,7 +14,8 @@ import { useRouter } from 'next/router'
 // this page is used to let users register for an event
 export default function Booking(props) {
 
-    const [state, setState] = useState(0);
+    const [state, setState] = useState(0)
+    const [hidenFieldOthers, setHideFieldOthers] = useState(false)
     let router = useRouter()
 
     // load imgs of this event
@@ -233,33 +234,52 @@ export default function Booking(props) {
                         >
                             <Input minLength={9} />
                         </Form.Item>
-        
+
                         <Form.Item
-                            label={t('booking.number-of-people')}
-                            name="nPeople"
+                            name="alone"
+                            wrapperCol={{ offset: 8 }}
+                            onChange={e => {
+                                setHideFieldOthers(e.target.checked)
+                                form.setFieldsValue({'nPeople':0})
+                            }}
                         >
-                            <InputNumber min={0} max={10} />
+                            <Checkbox>{t('booking.alone')}</Checkbox>
                         </Form.Item>
         
-                        <Form.Item
-                            noStyle
-                            shouldUpdate={(prevValues, curValues) => prevValues.nPeople !== curValues.nPeople}
-                        >
-                            {({ getFieldValue }) => (
-                                Array.from(Array(getFieldValue('nPeople'))).map(
-                                    (_, ind) => (
-                                        <Form.Item
-                                            key={ind}
-                                            name={`joiningPerson_${ind}`}
-                                            rules={[{ required: true, message: t('field-required') }]}
-                                            label={`${t('booking.person')} ${ind+1}`}
-                                        >
-                                            <Input placeholder={t('booking.full-name')} />
-                                        </Form.Item>
-                                    )
-                                )
-                            )}
-                        </Form.Item>
+                        {
+                            hidenFieldOthers ?
+                            <div />
+                            :   <Form.Item
+                                    label={t('booking.number-of-people')}
+                                    name="nPeople"
+                                >
+                                    <InputNumber min={0} />
+                                </Form.Item>
+                        }
+        
+                        {
+                            hidenFieldOthers ?
+                            <div />
+                            :   <Form.Item
+                                    noStyle
+                                    shouldUpdate={(prevValues, curValues) => prevValues.nPeople !== curValues.nPeople}
+                                >
+                                    {({ getFieldValue }) => (
+                                        Array.from(Array(getFieldValue('nPeople'))).map(
+                                            (_, ind) => (
+                                                <Form.Item
+                                                    key={ind}
+                                                    name={`joiningPerson_${ind}`}
+                                                    rules={[{ required: true, message: t('field-required') }]}
+                                                    label={`${t('booking.person')} ${ind+1}`}
+                                                >
+                                                    <Input placeholder={t('booking.full-name')} />
+                                                </Form.Item>
+                                            )
+                                        )
+                                    )}
+                                </Form.Item>
+                        }
         
                         <Form.Item
                             name='pickup'
@@ -315,9 +335,8 @@ export async function getStaticPaths() {
     let paths = []
 
     for (let i = 0; i < events.length; i++) {
-        paths.push({ params: { id: events[i].id.toString() }, locale: 'en' })
-        paths.push({ params: { id: events[i].id.toString() }, locale: 'de' })
         paths.push({ params: { id: events[i].id.toString() }, locale: 'fr' })
+        paths.push({ params: { id: events[i].id.toString() }, locale: 'en' })
     }
   
     // We'll pre-render only these paths at build time.

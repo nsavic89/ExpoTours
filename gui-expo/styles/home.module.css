@@ -7,7 +7,7 @@
     width: 100%;
     min-height: 100vh;
     color: white;
-    padding: 2rem 5rem;
+    padding: 5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,6 +20,15 @@
     background-color: rgba(0, 0, 0, 0.55);
     border-radius: 15px;
 }
+
+.sideNavigation {
+    position: fixed;
+    top: 0;
+    margin: 100px 10px;
+    display: flex;
+    flex-direction: column;
+}
+
 
 /* Animation of two homepage buttons */
 @keyframes fadein {
@@ -36,8 +45,8 @@
     outline: none;
     font-size: 1.5rem;
     background: rgba(0,0,0,0.6);
-    width: 250px;
-    margin: 1rem;
+    width: 300px;
+    margin: 0.5rem;
     animation: fadein 1s;
 }
   
@@ -49,13 +58,15 @@
 
 /* Events on home page */
 .events {
+    background: linear-gradient(
+        rgba(250, 250, 250, 0.95), rgba(250, 250, 250, 0.88)), 
+        url(/img/cover4.jpg) center center no-repeat;
+    background-size: cover;
     min-height: 100vh;
     display: flex;
-    justify-content: flex-start;
-    padding: 5rem 0;
+    padding: 3.5rem 0;
     align-items: center;
     flex-direction: column;
-    background: #eaeaea;
     font-size: 1.1rem;
 }
 
@@ -76,6 +87,7 @@
 .eventsList {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     overflow-x: hidden;
     width: 1000px;
     scroll-behavior: smooth;
@@ -93,17 +105,18 @@
 }
 
 .eventDate {
-    color:rgba(0, 0, 0, 0.4);
+    color:rgba(0, 0, 0, 0.75);
     font-weight: bold;
     font-size: larger;
 }
 
 .eventDayName {
-    color:rgba(0, 0, 0, 0.4);
+    color:rgba(0, 0, 0, 0.6);
     margin-bottom: 1rem;
 }
 
 .event {
+    background-color: white;
     padding: 0.5rem;
     border: 1px solid orangered;
     border-radius: 5px;
@@ -112,8 +125,8 @@
 }
 
 .event:hover {
-    color: white;
-    background-color: orangered;
+    background-color: rgb(255, 123, 0);
+    border: 1px solid rgb(255, 255, 255);
     cursor: pointer;
 }
 
@@ -154,6 +167,10 @@
 
 /* Arrange -> third element wrapper of the home page */
 .arrange {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)), 
+        url(/img/cover3.jpg) center center no-repeat;
+    background-size: cover;
     min-height: 100vh;
     display: flex;
     justify-content: flex-start;
@@ -161,6 +178,18 @@
     align-items: center;
     flex-direction: column;
     border-top: 2px solid white;
-    background: #e0e0e0;
     font-size: 1.1rem;
 }
+
+.demandForm {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 5px 5px 20px 5px rgba(0, 0, 0, 0.623);
+    width: 800px;
+    padding: 2rem 0;
+}
+
+.demandForm > h1 {
+    text-align: center;
+}
+

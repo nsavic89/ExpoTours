@@ -35,7 +35,7 @@ export default function Layout({ children }) {
             <footer className={styles.footer}>
                 <div>             
                     <div>
-                        {['fr', 'de', 'en'].map(
+                        {['fr', 'en'].map(
                             item => (
                                 <span key={item} className={styles.langLink}>
                                     <Link href={`/${item}`} locale={item}>

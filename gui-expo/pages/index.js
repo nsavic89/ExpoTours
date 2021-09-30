@@ -1,4 +1,4 @@
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRef } from 'react'
 import { useTranslations } from 'use-intl'
@@ -6,7 +6,9 @@ import Demand from '../components/demand'
 import Events from '../components/events'
 import Layout from '../components/layout'
 import styles from '../styles/home.module.css'
+import btnStyles from '../styles/button.module.css'
 import { server } from '../config';
+import Image from 'next/image'
 
 
 // home cover, events (separate component)
@@ -15,8 +17,10 @@ import { server } from '../config';
 export default function Home(props) {
 
 	const t = useTranslations()
+	const startRef = useRef(null)
 	const eventsRef = useRef(null) // allow scrolling to events
 	const demandRef = useRef(null)
+
 
 	
 
@@ -24,19 +28,34 @@ export default function Home(props) {
         <div>
             <Layout>
 				<div className={styles.main}>
-					<button 
+					<div style={{
+							backgroundColor: 'rgba(200, 200, 200, 0.25)',
+							borderRadius: 15,
+							padding: 25,
+							marginBottom: 25
+						}}
+						ref={startRef}
+					>
+						<Image
+							src="/logo_light.png"
+							width={200}
+							height={225}
+							alt="No logo"
+						/>
+					</div>
+					<div><button 
 						className={styles.button} 
 						onClick={() => eventsRef.current.scrollIntoView({behavior: 'smooth'})}
 					>
 						{t('home.discover')} <FontAwesomeIcon icon={faChevronDown} size="xs" />
-					</button>
+					</button></div>
 
-					<button
+					<div><button
 						className={styles.button}
 						onClick={() => demandRef.current.scrollIntoView({behavior: 'smooth'})}
 					>
 						{t('home.ask')} <FontAwesomeIcon icon={faChevronDown} size="xs" />
-					</button>
+					</button></div>
 				</div>
 
 				<div ref={eventsRef}>
@@ -47,6 +66,25 @@ export default function Home(props) {
 					<Demand />
 				</div>
             </Layout>
+
+			<div className={styles.sideNavigation}>
+				<button
+					type="button"
+					className={btnStyles.gost}
+					onClick={() => startRef.current.scrollIntoView({behavior: 'smooth'})}
+					style={{ textAlign: "left" }}
+				>
+					<FontAwesomeIcon icon={faChevronUp} /> {t('nav.home')}
+				</button>
+				<button
+					type="button"
+					className={btnStyles.gost}
+					onClick={() => demandRef.current.scrollIntoView({behavior: 'smooth'})}
+					style={{ textAlign: "left" }}
+				>
+					<FontAwesomeIcon icon={faChevronDown} /> Devis
+				</button>
+			</div>
         </div>
     )
 }
