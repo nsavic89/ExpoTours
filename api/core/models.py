@@ -24,6 +24,7 @@ class Traveller(models.Model):
     event = models.ForeignKey(Event, null=True, on_delete=models.SET_NULL)
     total = models.IntegerField()
     status = models.CharField(max_length=10)
+    price_id = models.CharField(max_length=100, blank=True)
 
 class EventImg(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
