@@ -1,16 +1,17 @@
 import styles from '../styles/home.module.css'
 import btnStyles from '../styles/button.module.css'
-import { DatePicker, Form, Input, InputNumber } from 'antd'
+import { DatePicker, Form, Input, InputNumber, message } from 'antd'
 import { useTranslations } from 'next-intl'
-
-
+import axios from 'axios'
+import { server } from '../config'
+import { useRouter } from 'next/router'
 
 
 // user may ask to rent a bus for a given date
 // if no interest in the offered events provided by the owner
 export default function Demand() {
-    const t = useTranslations();
-
+    const t = useTranslations()
+    let router = useRouter()
 
     return (
         <div className={ styles.arrange }>
@@ -20,6 +21,21 @@ export default function Demand() {
                 wrapperCol={{ span: 14 }}
                 labelCol={{ span: 6}}
                 className={ styles.demandForm }
+                onFinish={
+                    values => {
+                        // create start and end date strings 
+                        // rename zip to post code 
+                        values['dt_start'] = values.dt[0].format('DD.MM.YYYY HH:mm')
+                        values['dt_end'] = values.dt[1].format('DD.MM.YYYY HH:mm')
+                        values['post_code'] = values.zip
+
+                        axios.post(
+                            `${server}/demands/`,
+                            values
+                        ).then((res) => {console.log(res);router.push('/messages/success')}
+                        ).then(() => router.push('/messages/error'))
+                    }
+                }
             >
                 <h1>{t('demand.title')}</h1>
                 <Form.Item
@@ -96,17 +112,6 @@ export default function Demand() {
                 </Form.Item>
 
                 <Form.Item
-                    name="phone"
-                    required={true}
-                    label={t('demand.phone')}
-                    rules={[
-                        { required: true, message: t('field-required')}
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
                     name="start_location"
                     required={true}
                     label={t('demand.startLocation')}
@@ -129,7 +134,7 @@ export default function Demand() {
                 </Form.Item>
 
                 <Form.Item
-                    name="start_datetime"
+                    name="dt"
                     required={true}
                     label={t('demand.dateTime')}
                     rules={[

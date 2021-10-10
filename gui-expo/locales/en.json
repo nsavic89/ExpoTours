@@ -91,5 +91,12 @@
         "nPeople": "Number of persons",
         "comment": "Comment",
         "button": "Submit"
+    },
+    "messages": {
+        "successTitle": "Confirmation",
+        "success": "You will receive a confirmation email soon.",
+        "errorTitle": "Error",
+        "error": "An error occurred",
+        "return": "Back"
     }
 }

@@ -29,3 +29,19 @@ class Traveller(models.Model):
 class EventImg(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     img = models.ImageField()
+
+class Demand(models.Model):
+    name = models.CharField(max_length=50)
+    organization = models.CharField(max_length=100, blank=True)
+    address = models.CharField(max_length=150)
+    post_code = models.IntegerField()
+    city = models.CharField(max_length=50)
+    email = models.CharField(max_length=100)
+    phone = models.CharField(max_length=25)
+    start_location = models.CharField(max_length=255)
+    end_location = models.CharField(max_length=255)
+    dt_start = models.CharField(max_length=50)
+    dt_end = models.CharField(max_length=50)
+    n_travellers = models.IntegerField()
+    comment = models.TextField(blank=True)
+    status = models.CharField(max_length=20, blank=True)

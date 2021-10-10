@@ -26,6 +26,7 @@ export default function Admin(props) {
     // views (events, travellers...)
     const [view, setView] = useState('Evenements')
     const [events, setEvents] = useState([])
+    const [demands, setDemands] = useState([])
     const [state, setState] = useState(false) // render content
     const [selectedEvent, setSelectedEvent] = useState(0)
 
@@ -52,6 +53,7 @@ export default function Admin(props) {
             newEvents[i].route = routeDiv
         } 
         setEvents(newEvents)
+        setDemands(props.demands)
         setState(true)
     }, [])
   
@@ -100,7 +102,7 @@ export default function Admin(props) {
                                             <Popconfirm
                                                 title="Vous êtes sûr?"
                                                 onConfirm={() => axios.delete(
-                                                        `${process.env.NEXT_PUBLIC_API_URL}/events/${event.id}`
+                                                        `${server}/events/${event.id}`
                                                     ).then(() => {
                                                         message.warning("Evenement effacé")
                                                         setEvents(events.filter(o => o.id !== event.id))
@@ -207,8 +209,9 @@ export default function Admin(props) {
                 <tbody>
                     <>
                         {travellers.map(
-                            trv => (
-                                <tr key={trv.id}>
+                            (trv, inx) => (
+                                <tr key={trv.id} style={inx%2===0?{background:'rgb(240,240,240)'}:{}}>
+                                    
                                     <td>{`${trv['first_name']} ${trv['last_name']}`}</td>
                                     <td>{trv.address}</td>
                                     <td>{trv.phone}</td>
@@ -230,9 +233,104 @@ export default function Admin(props) {
     )
 
 
+
+
+    // demands
+    const demandsDiv = (
+        <div>
+            <div className={styling.header}>
+                <div><h1>Devis/Demandes</h1></div>
+            </div>
+            <table className={styling.table}>
+                <thead>
+                    <tr>
+                        <th>.</th>
+                        <th>Nom</th>
+                        <th>Société</th>
+                        <th>Adresse</th>
+                        <th>Contact</th>
+                        <th>Voyage commence de</th>
+                        <th>Voyage jusqu'à</th>
+                        <th>Depuis (date/heure)</th>
+                        <th>Jusqu'à (date/heure)</th>
+                        <th>Nombre de personnes</th>
+                        <th>Commentaire</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <>
+                    {
+                        demands.map(
+                            (demand,inx) => (
+                                <tr key={demand.key} style={inx%2==0?{background:'rgb(240,240,240)'}:{}}>
+                                    <td>
+                                        <>
+                                        <Popconfirm
+                                                title="Vous êtes sûr?"
+                                                onConfirm={() => axios.delete(
+                                                        `${server}/demands/${demand.id}`
+                                                    ).then(() => {
+                                                        message.warning("Demande effacée")
+                                                        setDemands(demands.filter(o => o.id !== demand.id))
+                                                    }).catch(() => message.warning("Une erreur s'est produit"))
+                                                }
+                                                okText="Oui"
+                                                cancelText="Non"
+                                            >
+                                                <button type="button" className={styling.btnDanger}>
+                                                    <FontAwesomeIcon icon={faTrashAlt} />
+                                                </button>
+                                            </Popconfirm>
+
+                                            <Link href={`/admin/facture/${demand.id}`}>
+                                                <button
+                                                    type="button" 
+                                                    style={{ 
+                                                        margin: '4px',
+                                                        borderRadius: '5px',
+                                                        outline: 'none',
+                                                        border: 'none',
+                                                        background: 'rgb(20,180,100)',
+                                                        color: 'white'
+                                                    }}>
+                                                    Créer facture
+                                                </button>
+                                            </Link>
+                                        </>
+                                    </td>
+                                    <td>{demand.name}</td>
+                                    <td>{demand.organization}</td>
+                                    <td><>
+                                        <div>{demand.address}</div>
+                                        <div>{demand['post_code']}</div>
+                                        <div>{demand.city}</div>
+                                    </></td>
+                                    <td><>
+                                        <div>{demand.email}</div>
+                                        <div>{demand.phone}</div>
+                                    </></td>
+                                    <td>{demand['start_location']}</td>
+                                    <td>{demand['end_location']}</td>
+                                    <td>{demand['dt_start']}</td>
+                                    <td>{demand['dt_end']}</td>
+                                    <td>{demand['n_travellers']}</td>
+                                    <td>{demand.comment}</td>
+                                    <td>{demand.status}</td>
+                                </tr>
+                            )
+                        )
+                    }
+                    </>
+                </tbody>
+            </table>
+        </div>
+    )
+
+
     const views = {
         Evenements: eventsDiv,
-        Demandes: <div>Demandes</div>,
+        Demandes: demandsDiv,
         Voyageurs: travellersDiv
     }
     
@@ -271,10 +369,14 @@ export async function getStaticProps(context) {
     const res1 = await fetch(`${server}/travellers/`)
     const travellers = await res1.json()
 
+    const res2 = await fetch(`${server}/demands/`)
+    const demands = await res2.json()
+
     return {
 		props: {
 			eventsList: events,
             travellers: travellers,
+            demands: demands,
             messages: require(`../../locales/${context.locale}.json`)
 		}
     };

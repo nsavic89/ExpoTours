@@ -3,8 +3,13 @@ from rest_framework.decorators import api_view
 from rest_framework import viewsets
 from rest_framework.response import Response 
 from rest_framework import status
-from .models import Event, Traveller, EventImg
-from .serializers import EventSerializer, TravellerSerializer, EventImgSerializer
+from .models import Event, Traveller, EventImg, Demand
+from .serializers import (
+    EventSerializer,
+    TravellerSerializer,
+    EventImgSerializer,
+    DemandSerializer
+)
 import stripe
 
 
@@ -43,3 +48,23 @@ class TravellerViewSet(viewsets.ModelViewSet):
 class EventImgViewSet(viewsets.ModelViewSet):
     queryset = EventImg.objects.all()
     serializer_class = EventImgSerializer
+
+class DemandViewSet(viewsets.ModelViewSet):
+    queryset = Demand.objects.all()
+    serializer_class = DemandSerializer
+
+@api_view(['POST'])
+def send_facture_devis(request, pk):
+    price_obj = stripe.Price.create(
+        unit_amount=request.data['price']*100,
+        currency="chf",
+        product_data={"name": request.data['name']}
+    )
+
+    demand = Demand.objects.get(pk=pk)
+    demand.status = 'Facturé'
+    demand.save()
+
+    # here should be email sent to the corresponing user
+
+    return Response('CREATED', status=status.HTTP_201_CREATED)

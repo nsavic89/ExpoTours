@@ -91,5 +91,12 @@
         "nPeople": "Nombre de personnes",
         "comment": "Commentaire/Remarque",
         "button": "Demander"
+    }, 
+    "messages": {
+        "successTitle": "Confirmation",
+        "success": "Vous allez recevoir un email très prochainement",
+        "errorTitle": "Erreur",
+        "error": "Une erreur s'est produit! Veuillez essayer plus tard...",
+        "return": "Retour"
     }
 }

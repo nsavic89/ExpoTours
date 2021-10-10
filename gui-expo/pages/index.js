@@ -70,15 +70,16 @@ export default function Home(props) {
 			<div className={styles.sideNavigation}>
 				<button
 					type="button"
-					className={btnStyles.gost}
+					className={btnStyles.primary}
 					onClick={() => startRef.current.scrollIntoView({behavior: 'smooth'})}
 					style={{ textAlign: "left" }}
 				>
 					<FontAwesomeIcon icon={faChevronUp} /> {t('nav.home')}
 				</button>
+				<br/>
 				<button
 					type="button"
-					className={btnStyles.gost}
+					className={btnStyles.primary}
 					onClick={() => demandRef.current.scrollIntoView({behavior: 'smooth'})}
 					style={{ textAlign: "left" }}
 				>

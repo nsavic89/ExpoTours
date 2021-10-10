@@ -1,0 +1,39 @@
+.wrapper{
+    display: flex;
+    height: 100vh;
+    min-height: 100vh;
+    justify-content: center;
+    align-items:center;
+    flex-direction: column;
+}
+
+.mainTextError {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: rgb(255, 252, 218);
+    border: 1px solid rgb(245, 223, 24);
+}
+
+.mainTextSuccess {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: rgb(190, 255, 153);
+    border: 1px solid rgb(34, 189, 13);
+}
+
+.returnButton {
+    background: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    background-color: rgb(255, 138, 96);
+    color: rgb(7, 1, 1);
+    border: 1px solid orangered;
+    font-weight: bold;
+}
+
+.returnButton:hover {
+    cursor: pointer;
+}
