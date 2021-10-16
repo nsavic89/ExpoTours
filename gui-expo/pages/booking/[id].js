@@ -3,18 +3,22 @@ import { Checkbox, Form, Input, InputNumber, message, Select } from "antd"
 import { useTranslations } from "next-intl"
 import Layout from "../../components/layout"
 import styling from "../../styles/booking.module.css"
+import homeStyling from "../../styles/home.module.css"
 import btnStyling from "../../styles/button.module.css"
 import { server } from '../../config'
 import Image from 'next/image'
 import { useRef, useState } from "react"
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 
 
 // this page is used to let users register for an event
 export default function Booking(props) {
 
     const [state, setState] = useState(0)
+    const [spin, setSpin] = useState(false)
     const [hidenFieldOthers, setHideFieldOthers] = useState(false)
     let router = useRouter()
 
@@ -65,6 +69,7 @@ export default function Booking(props) {
         return price * (n+1)
     }
 
+    // spin while waiting request response
     // contains two big wrappers -> both with min height of 100vh
     // first -> presentation / advertisment
     // second -> booking form
@@ -159,7 +164,7 @@ export default function Booking(props) {
                         style={{ minWidth: 450, width: 550 }}
                         onFinish={
                             values => {
-
+                                setSpin(true);
                                 // joining persons should be stringified
                                 let joining = [];
 
@@ -180,11 +185,11 @@ export default function Booking(props) {
                                     values
                                 ).then(
                                     () => {
-                                        message.success(t('booking.successful-msg'))
-                                        router.push('/')
+                                        setSpin(false);
+                                        router.push('/messages/success')
                                     }
                                 ).catch(
-                                    () => message.warning(t('booking.failed-msg'))
+                                    () => router.push('/messages/error')
                                 )
                             }
                         }
@@ -320,6 +325,14 @@ export default function Booking(props) {
                         </Form.Item>
                     </Form>
                 </div>
+
+                {
+                    spin ? 
+                    <div className={homeStyling.spinner} style={{ top: '100vh' }}>
+                        Veuillez patienter...
+                    </div> 
+                    : <div />
+                }
             </div>
         </Layout>
     )

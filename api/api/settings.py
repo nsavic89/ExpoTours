@@ -135,3 +135,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Path where to store images
 MEDIA_ROOT = os.path.join(BASE_DIR, 'MEDIA/')
 MEDIA_URL = '/MEDIA/'
+
+
+#DataFlair
+EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "nenadsavic989@gmail.com"
+EMAIL_HOST_PASSWORD = "Scofield89"

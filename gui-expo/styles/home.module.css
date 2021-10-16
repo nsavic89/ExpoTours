@@ -193,3 +193,18 @@
     text-align: center;
 }
 
+.spinner {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    height: 100vh;
+    justify-content: center;
+    background: rgba(0,0,0,0.75);
+    z-index: 1;
+    color:rgb(255, 230, 0);
+    font-size: 2rem;
+    position: absolute;
+    top: 0;
+    left:0;
+    width: 100%;
+}

@@ -27,6 +27,7 @@ export default function Admin(props) {
     const [view, setView] = useState('Evenements')
     const [events, setEvents] = useState([])
     const [demands, setDemands] = useState([])
+    const [travellers, setTravellers] = useState([])
     const [state, setState] = useState(false) // render content
     const [selectedEvent, setSelectedEvent] = useState(0)
 
@@ -54,6 +55,7 @@ export default function Admin(props) {
         } 
         setEvents(newEvents)
         setDemands(props.demands)
+        setTravellers(props.travellers)
         setState(true)
     }, [])
   
@@ -146,9 +148,9 @@ export default function Admin(props) {
 
     // travellers for the selected event
     // filter list of travellers
-    let travellers = props.travellers
+    let travellers2 = [...travellers.map(o => Object.assign({}, o))]
     if (selectedEvent !== 0) {
-        travellers = props.travellers.filter(o => o.event === selectedEvent)
+        travellers2 = travellers2.filter(o => o.event === selectedEvent)
     }
 
     // travellers
@@ -160,16 +162,23 @@ export default function Admin(props) {
                 <div>
                     <Form
                         name="events"
-                        wrapperCol={{ span: 12 }}
-                        labelCol={{ span: 12 }}
-                        style={{ width: 500 }}
+                        layout='inline'
+                        onFinish={
+                            values => {
+                                axios.get(`${server}/send-payment-invitation/${values.event}`)
+                                .then(() => message.success("L'invitation envoyée"))
+                                .catch(() => message.warning('Sans succès...essayez plus tard...'))
+                            }
+                        }
                     >
                         <Form.Item
+                            required
                             name="event"
                             label="Evenement"
                             style={{ marginBottom: 0 }}
+                            rules={[{ required:true, message:'Obligatoire' }]}
                         >
-                            <Select onChange={value => setSelectedEvent(value)}>
+                            <Select onChange={value => setSelectedEvent(value)} style={{width:300}}>
                             {
                                 eventsList.map(
                                     event => (
@@ -181,13 +190,13 @@ export default function Admin(props) {
                             }
                             </Select>
                         </Form.Item>
-                    </Form>
-                </div>
 
-                <div>
-                    <button type="button" className={styling.btnPrimary}>
-                        Inviter pour payement
-                    </button>
+                        <Form.Item>
+                            <button type="submit" className={styling.btnPrimary}>
+                                Inviter pour payement
+                            </button>
+                        </Form.Item>
+                    </Form>
                 </div>
             </div>
 
@@ -196,6 +205,7 @@ export default function Admin(props) {
             <table className={styling.table}>
                 <thead>
                     <tr>
+                        <th>Supprimer</th>
                         <th>Prénom, nom</th>
                         <th>Adresse</th>
                         <th>Téléphone</th>
@@ -208,10 +218,27 @@ export default function Admin(props) {
                 </thead>
                 <tbody>
                     <>
-                        {travellers.map(
+                        {travellers2.map(
                             (trv, inx) => (
                                 <tr key={trv.id} style={inx%2===0?{background:'rgb(240,240,240)'}:{}}>
-                                    
+                                    <td>
+                                        <Popconfirm
+                                            title="Vous êtes sûr?"
+                                            onConfirm={() => axios.delete(
+                                                    `${server}/travellers/${trv.id}`
+                                                ).then(() => {
+                                                    message.warning("Voyageur effacée")
+                                                    setTravellers(travellers.filter(o => o.id !== trv.id))
+                                                }).catch(() => message.warning("Une erreur s'est produit"))
+                                            }
+                                            okText="Oui"
+                                            cancelText="Non"
+                                        >
+                                            <button type="button" className={styling.btnDanger}>
+                                                <FontAwesomeIcon icon={faTrashAlt} />
+                                            </button>
+                                        </Popconfirm>
+                                    </td>
                                     <td>{`${trv['first_name']} ${trv['last_name']}`}</td>
                                     <td>{trv.address}</td>
                                     <td>{trv.phone}</td>

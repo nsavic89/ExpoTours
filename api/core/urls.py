@@ -1,6 +1,13 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import EventViewSet, TravellerViewSet, EventImgViewSet, DemandViewSet, send_facture_devis
+from .views import (
+    EventViewSet,
+    TravellerViewSet,
+    EventImgViewSet,
+    DemandViewSet,
+    send_facture_devis,
+    send_payment_invitation
+)
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -15,5 +22,6 @@ router.register(r'demands', DemandViewSet)
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
     path('', include(router.urls)),
-    path('facture-devis/<int:pk>', send_facture_devis)
+    path('facture-devis/<int:pk>', send_facture_devis),
+    path('send-payment-invitation/<int:pk>', send_payment_invitation),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

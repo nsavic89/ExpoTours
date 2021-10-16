@@ -27,9 +27,23 @@ export default function Payment({trv}) {
   return (
     <form action={`/api/checkout_session/${trv.price_id}`} method="POST">
       <section>
-        <button type="submit" role="link">
-          Checkout
-        </button>
+        <div><h1>ExpoTours.ch</h1></div>
+        <div style={{ marginBottom: 25 }}>
+            <strong>
+                Vous êtes invité pour un paiement.
+                Veuillez cliquer sur le bouton ci-dessous pour accéder
+                à la page de paiement.
+            </strong>
+        </div>
+        <div>
+          <button type="submit" role="link">
+              Procéder au paiement
+          </button>
+        </div>
+        <div>
+          <br/><br/>
+          <img alt='no-img' src='/logo_light.png' height={300} />
+        </div>
       </section>
       <style jsx>
         {`
@@ -37,10 +51,10 @@ export default function Payment({trv}) {
             background: #ffffff;
             display: flex;
             flex-direction: column;
-            width: 400px;
-            height: 112px;
+            min-height: 100vh;
             border-radius: 6px;
-            justify-content: space-between;
+            justify-content: center;
+            align-items: center;
           }
           button {
             height: 36px;
