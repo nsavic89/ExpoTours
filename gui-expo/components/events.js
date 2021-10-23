@@ -11,7 +11,10 @@ import Link from 'next/link';
 
 
 
-
+/* 
+    component used by index.js as the second wrapper with 100vh
+    displays events in a calendar like view
+*/
 function Events(props) {
 
     const events = props.events
@@ -19,32 +22,40 @@ function Events(props) {
 
     const t = useTranslations()
 
+    let themes = ['-']
+
     // set day, month, year for events
     for (let i in events) {
         let date = events[i].date1.split('-')
         events[i].day = parseInt(date[0])
         events[i].month = parseInt(date[1])
         events[i].year = parseInt(date[2])
+        themes.push(events[i].theme)
     }
 
 
     // const months, years and themes
     const months = Array.from(Array(12).keys())
     const years = Array.from({length: 5}, (_, i) => i + 2021)
-    const themes = ['-']
+
 
     // date to get current month and year
     const d = new Date()
+    const cDay = d.getDate()
     const cMonth = d.getMonth()
     const cYear = d.getFullYear()
+
 
     // state keeps current date selected in filter
     const [state, setState] = useState({ 
         month: cMonth,
         year: cYear,
-        theme: themes[0] 
+        theme: '-' 
     })
 
+    // filter day, month
+    // disable possiblity to display yesterday's events (or more previous ones)
+    let displayedEvents = events.filter(o => o.month >= cMonth && o.day > cDay)
 
 
     // events are displayed per day of the month
@@ -53,9 +64,11 @@ function Events(props) {
 
 
     // filter events to the selected month, year and theme
-    let displayedEvents = events.filter(
+    displayedEvents = displayedEvents.filter(
         o => o.month === state.month + 1 && o.year === state.year
     )
+
+
     if (state.theme !== '-') {
         // if all themes -> no filter related to the theme
         displayedEvents = displayedEvents.filter(o => o.theme === state.theme)
@@ -139,7 +152,11 @@ function Events(props) {
                                                 <Link href={`/booking/${event.id}`} key={event.id}>
                                                     <div className={ styles.event }>
                                                         <img
-                                                            src={imgs.filter(o => o.event === event.id)[0].img}
+                                                            src={
+                                                                imgs.filter(o => o.event === event.id).length>0 
+                                                                ? imgs.filter(o => o.event === event.id)[0].img 
+                                                                : '/img/notripimg.png'
+                                                            }
                                                             alt="no-img"
                                                             width="100%"
                                                             height={150}

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-
+import { server } from '../../config'
 
 
 // create new event/trip
@@ -44,7 +44,7 @@ export default function AddNew() {
                             // submit to server -> POST request
                             // axios
                             axios.post(
-                                `${process.env.NEXT_PUBLIC_API_URL}/events/`,
+                                `${server}/events/`,
                                 values
                             ).then(
                                 res => {

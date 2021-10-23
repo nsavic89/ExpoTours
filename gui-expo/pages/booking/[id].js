@@ -80,20 +80,24 @@ export default function Booking(props) {
                 style={{
                     color: 'rgb(240, 240, 240)',
                     fontSize: '1rem',
-                    backgroundColor: 'black'
+                    backgroundColor: imgs[0] ? 'black' : 'silver'
                 }}
                 
             >
                 <div style={{ opacity: 0.5 }}>
-                    <Image
-                        loader={({src}) => src}
-                        src={imgs[state < imgs.length ? state : 0].img}
-                        alt="Picture not loaded"
-                        layout="fill"
-                        placeholder="blur"
-                        blurDataURL={imgs[0].img}
-                        loading="lazy"
-                    />
+                    {
+                        imgs[0] ? 
+                        <Image
+                            loader={({src}) => src}
+                            src={imgs[state < imgs.length ? state : 0].img}
+                            alt="Picture not loaded"
+                            layout="fill"
+                            placeholder="blur"
+                            blurDataURL={imgs[0].img}
+                            loading="lazy"
+                        />
+                        :<div />
+                    }
                 </div>
 				
 
@@ -102,7 +106,7 @@ export default function Booking(props) {
                         zIndex: 1,
                         textAlign: 'center',
                         fontSize: 22,
-                        background: 'rgba(0,0,0,0.45)',
+                        background: imgs[0] ? 'rgba(0,0,0,0.45)' : 'rgb(80,80,80)',
                         borderRadius: 15,
                         padding: 50
                     }}

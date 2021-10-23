@@ -20,7 +20,7 @@ export default function Layout({ children }) {
 
 
                 <div className={styles.navbar}>
-                    {['home', 'services', 'about', 'contact'].map( item => (
+                    {['home', 'services', 'location', 'about', 'contact'].map( item => (
                         <div key={item} className={styles.navbarItem}>
                             <Link href={item === 'home' ? '/' : `/${item}`}>
                                 <a>{t(`nav.${item}`)}</a>
