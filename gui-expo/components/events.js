@@ -30,7 +30,11 @@ function Events(props) {
         events[i].day = parseInt(date[0])
         events[i].month = parseInt(date[1])
         events[i].year = parseInt(date[2])
-        themes.push(events[i].theme)
+        
+        // add if not already added
+        if (!themes.includes(events[i].theme)) {
+            themes.push(events[i].theme)
+        }
     }
 
 

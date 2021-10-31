@@ -10,8 +10,6 @@ import Image from 'next/image'
 import { useRef, useState } from "react"
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faSpinner } from "@fortawesome/free-solid-svg-icons"
 
 
 // this page is used to let users register for an event

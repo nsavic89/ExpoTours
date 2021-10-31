@@ -208,3 +208,19 @@
     left:0;
     width: 100%;
 }
+
+.locationBtnDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.locationBtn {
+    width: 19%;
+    font-size: large;
+    font-weight: bold;
+    padding: 10px 0;
+    background-color: black;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+}

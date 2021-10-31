@@ -1,20 +1,79 @@
+import { useState } from "react";
 import { useTranslations } from "use-intl";
 import Layout from "../components/layout"
 import styling from "../styles/home.module.css"
+import Image from 'next/image'
+
+
+
+const cars = [{
+    id:1,
+    name: 'mrce',
+    label: 'Mercedes E',
+    value: 3
+},{
+    id:2,
+    name: 'mrcs',
+    label: 'Mercedes S',
+    value: 6
+}, {
+    id:3,
+    name: 'setra',
+    label: 'Setra',
+    value: 4
+}, {
+    id:4,
+    name: 'sprinterlux',
+    label: 'Sprinter Lux',
+    value: 2
+}, {
+    id:5,
+    name: 'sprintervip',
+    label: 'Sprinter Vip',
+    value: 4
+}]
+
 
 
 
 export default function Location() {
 
+    const [state, setState] = useState({id:1,name:'mrcs',value:3,label:'Mercedes E'})
     const t = useTranslations()
-
+    
     return(
         <Layout>
-            <div className={styling.main} style={{ fontSize: 16 }}>
-                <div className={styling.shadowBoxDiv} style={{ marginTop: 50 }}>
-                    <h1>
-                        {t('nav.location')}
-                    </h1>
+            <div className={styling.main} style={{ fontSize: 16, justifyContent:'start' }}>
+                <div className={styling.shadowBoxDiv} style={{ marginTop: 0 }}>
+                    <div>
+                        <div  className={styling.locationBtnDiv}>{cars.map(
+                            item => (
+                                <button 
+                                    className={styling.locationBtn} 
+                                    onClick={() => setState(item)}
+                                    style={
+                                        item.id===state.id ? 
+                                        {fontWeight:"bold",color:'orangered', border: '4px solid red'} 
+                                        : {}}
+                                > {item.label}
+                                </button>
+                            )
+                        )}</div>
+
+                        <br/>
+
+                        {Array.from(Array(state.value)).map(
+                            (_,inx) => (
+                                <img
+                                //loader={({src}) => src}
+                                    src={`/location/${state.name}/img${inx+1}.jpg`}
+                                    alt="Picture not loaded"
+                                    width='50%'
+                                    style={{ margin: '5px', marginLeft: '25%' }}
+                                />
+                            )
+                        )}
+                    </div>
                 </div>
             </div>
         </Layout>
