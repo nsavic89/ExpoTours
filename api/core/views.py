@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework import viewsets
 from rest_framework.response import Response 
 from rest_framework import status
@@ -11,9 +11,9 @@ from .serializers import (
     EventImgSerializer,
     DemandSerializer
 )
+from rest_framework.permissions import AllowAny
 import stripe
 from api.settings import EMAIL_HOST_USER
-
 
 
 
@@ -22,6 +22,94 @@ stripe.api_key = "sk_test_QB0BvKFCZfTP4BZAz4R5oyvv00WPPDqfTa"
 
 
 
+
+# client side --------------------------------------------------------
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def client_events(request):
+    events = Event.objects.all()
+    events_ser = EventSerializer(events, many=True)
+    return Response(events_ser.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def client_events_imgs(request):
+    events = EventImg.objects.all()
+    events_ser = EventImgSerializer(events, many=True)
+    return Response(events_ser.data, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def client_booking(request):
+    ser = TravellerSerializer(data=request.data)
+    if ser.is_valid() == True:
+        trv = ser.save()
+        price_amount = trv.total * 100
+        event_name = trv.event.name
+
+        price_obj = stripe.Price.create(
+            unit_amount=price_amount,
+            currency="chf",
+            product_data={"name": event_name}
+        )
+        trv.price_id = price_obj.id
+        trv.save()
+
+        try:
+            send_mail(
+                'ExpoTours.ch - confirmation', 
+                    """
+                        Cher Monsieur, Chère Madame,
+                        Ce message est reçu pour confirmer votre intérêt pour l'événement intitulé'{}'. 
+                        Dans quelques jours, vous allez recevoir les instructions 
+                        de paiement.
+                        Nos meilleurs salutations!
+                    """.format(trv.event.name),
+                EMAIL_HOST_USER,
+                [trv.email],
+                fail_silently=False
+            )
+    
+            # return success message
+            return Response(ser.data, status.HTTP_201_CREATED)
+        except:
+            return Response('ERROR', status=status.HTTP_400_BAD_REQUEST)    
+    return Response('Error', status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def client_demand(request):
+    data_ser = DemandSerializer(data=request.data)
+    if data_ser.is_valid() == True:
+        data_ser.save()
+
+        try:
+            send_mail(
+                'ExpoTours.ch - confirmation (demande)', 
+                    """
+                        Cher Monsieur, Chère Madame,
+                        Ce message est reçu pour confirmer que nous avons reçu votre demande. 
+                        Nous allons la traiter dans le meilleur délai.
+                        Nos meilleurs salutations!
+                    """,
+                EMAIL_HOST_USER,
+                [data_ser.data['email']],
+                fail_silently=False
+            )
+    
+            # return success message
+            return Response('OK', status.HTTP_201_CREATED)
+        except:
+            return Response('ERROR', status=status.HTTP_400_BAD_REQUEST)   
+
+        return Response('OK', status=status.HTTP_200_OK)
+
+    return Response('Error', status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+# admin pages ---------------------------------------------------------
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
@@ -29,48 +117,6 @@ class EventViewSet(viewsets.ModelViewSet):
 class TravellerViewSet(viewsets.ModelViewSet):
     queryset = Traveller.objects.all()
     serializer_class = TravellerSerializer
-
-    # save new traveller
-    # create price instance on stripe
-    def create(self, request):
-        ser = TravellerSerializer(data=request.data)
-        if ser.is_valid():
-            trv = ser.save()
-            price_amount = trv.total * 100
-            event_name = trv.event.name
-
-            price_obj = stripe.Price.create(
-                unit_amount=price_amount,
-                currency="chf",
-                product_data={"name": event_name}
-            )
-            trv.price_id = price_obj.id
-            trv.save()
-
-            try:
-                send_mail(
-                    'ExpoTours.ch - confirmation', 
-                        """
-                            Cher Monsieur, Chère Madame,
-
-                            Ce message est reçu pour confirmer votre intérêt pour {}. 
-                            Dans les jours qui suivent, vous recevrez les instructions 
-                            de paiement.
-
-                            Nos meilleurs salutations!
-                        """.format(trv.event.name),
-                    EMAIL_HOST_USER,
-                    [trv.email],
-                    fail_silently=False
-                )
-        
-                # return success message
-                return Response(ser.data, status.HTTP_201_CREATED)
-            except:
-                return Response('ERROR', status=status.HTTP_400_BAD_REQUEST)            
-
-        else:
-            return Response('Error', status=status.HTTP_400_BAD_REQUEST)
 
 class EventImgViewSet(viewsets.ModelViewSet):
     queryset = EventImg.objects.all()
@@ -119,3 +165,9 @@ def send_payment_invitation(request, pk):
         return Response('OK', status=status.HTTP_200_OK)
     except:
         return Response('ERROR', status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['get'])
+@permission_classes([AllowAny])
+def token_verification(request):
+    return Response(request.user.username, status=status.HTTP_200_OK)

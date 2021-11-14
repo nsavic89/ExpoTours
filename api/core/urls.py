@@ -6,7 +6,12 @@ from .views import (
     EventImgViewSet,
     DemandViewSet,
     send_facture_devis,
-    send_payment_invitation
+    send_payment_invitation,
+    token_verification,
+    client_events,
+    client_events_imgs,
+    client_booking,
+    client_demand
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -21,7 +26,15 @@ router.register(r'demands', DemandViewSet)
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
+    # CLIENT SIDE
+    path('client-events/', client_events),
+    path('client-events-imgs/', client_events_imgs),
+    path('client-booking/', client_booking),
+    path('client-demand/', client_demand),
+
+    # ADMIN SIDE
     path('', include(router.urls)),
     path('facture-devis/<int:pk>', send_facture_devis),
     path('send-payment-invitation/<int:pk>', send_payment_invitation),
+    path('token-ver', token_verification)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

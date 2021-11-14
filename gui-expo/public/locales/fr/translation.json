@@ -1,0 +1,103 @@
+{
+    "theme": "Sujet",
+    "field-required": "Champ obligatoire",
+    "not-email": "Pas email",
+    "too-short": "Très court",
+    "not-number": "Entrez un numéro de téléphone",
+    "book": "Réserver",
+    "nav": {
+        "home": "Acceuil",
+        "location": "Location",
+        "about": "À propos de nous",
+        "services": "Prestations",
+        "contact": "Contact"
+    },
+    "home": {
+        "phone": "Téléphone",
+        "discover": "Decouvrez nos offres",
+        "ask": "Demander un devis",
+        "no-events": "Aucun résultat",
+        "no-events-found-alert": "Aucun reésultat trouvé. Essayez avec une autre date ou un autre sujet"
+    },
+    "month": {
+        "0": "janvier",
+        "1": "février",
+        "2": "mars",
+        "3": "avril",
+        "4": "mai",
+        "5": "juin",
+        "6": "juillet",
+        "7": "août",
+        "8": "septembre",
+        "9": "octobre",
+        "10": "novembre",
+        "11": "décembre"
+    },
+    "day": {
+        "0": "dimanche",
+        "1": "lundi",
+        "2": "mardi",
+        "3": "mercredi",
+        "4": "jeudi",
+        "5": "vendredi",
+        "6": "samedi"
+    },
+    "dayShort": {
+        "0": "Dim",
+        "1": "Lun",
+        "2": "Mar",
+        "3": "Mer",
+        "4": "Jeu",
+        "5": "Ven",
+        "6": "Sam"
+    },
+    "booking": {
+        "first-name": "Prénom",
+        "last-name": "Nom",
+        "phone": "Téléphone",
+        "address": "Adresse",
+        "addressPlaceholder": "Rue et No, code postal, Ville",
+        "alone": "Je voyage seul",
+        "number-of-people": "Nombre d'autres",
+        "person": "Personne",
+        "full-name": "Prénom / Nom",
+        "pick-up": "Arrêt",
+        "book": "Réserver",
+        "at-place": "à",
+        "to": "à",
+        "via": "Via",
+        "no-stop": "Sans arrêt",
+        "from-date": "Dès le",
+        "to-date": "à",
+        "book-now-button": "Réserver maintenant!",
+        "final-price": "Prix final",
+        "successful-msg": "Félicitation! Vous allez recevoir un email très prochainement",
+        "failed-msg": "Erreur. Essayer plus tard"
+    },
+    "demand": {
+        "title": "Damander un devis",
+        "fullName": "Prénom et nom",
+        "organization": "Société",
+        "address": "Adresse",
+        "addressPlaceholder": "Rue et No",
+        "cityAndZip": "Code postal et Ville",
+        "email": "E-mail",
+        "phone": "Téléphone",
+        "startLocation": "Depart",
+        "locationPlaceholder": "Rue et No, Ville, Pay",
+        "dateTime": "Durée du voyage",
+        "endLocation": "Destination",
+        "startDateTime": "Depuis",
+        "endDateTime": "Jusqu'à",
+        "nPeople": "Nombre de personnes",
+        "comment": "Commentaire/Remarque",
+        "button": "Demander"
+    }, 
+    "messages": {
+        "successTitle": "Confirmation",
+        "success": "Vous allez recevoir un email très prochainement",
+        "errorTitle": "Erreur",
+        "error": "Une erreur s'est produit! Veuillez essayer plus tard...",
+        "return": "Retour"
+    }
+}

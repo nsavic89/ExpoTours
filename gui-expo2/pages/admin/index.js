@@ -8,6 +8,8 @@ import { message, Popconfirm } from 'antd'
 import axios from 'axios'
 import { server } from '../../config'
 import { Form, Select } from 'antd'
+import withSession from '../../lib/session'
+
 
 
 
@@ -30,6 +32,7 @@ export default function Admin(props) {
     const [travellers, setTravellers] = useState([])
     const [state, setState] = useState(false) // render content
     const [selectedEvent, setSelectedEvent] = useState(0)
+
 
     // json to js object route in each event
     useEffect(() => {
@@ -388,25 +391,36 @@ export default function Admin(props) {
 
 
 
-// pages/index.js
-export async function getStaticProps(context) {
-	const res = await fetch(`${server}/events/`)
-    const events = await res.json()
+export const getServerSideProps = withSession(async function ({ req, res }) {
+    const user = req.session.get('user')
+  
+    if (!user) {
+      return {
+        redirect: {
+          destination: '/login',
+          permanent: false,
+        },
+      }
+    }
+  
+    const res1 = await fetch(`${server}/events/`)
+    const events = await res1.json()
 
-    const res1 = await fetch(`${server}/travellers/`)
-    const travellers = await res1.json()
+    const res2 = await fetch(`${server}/travellers/`)
+    const travellers = await res2.json()
 
-    const res2 = await fetch(`${server}/demands/`)
-    const demands = await res2.json()
+    const res3 = await fetch(`${server}/demands/`)
+    const demands = await res3.json()
 
     return {
 		props: {
-			eventsList: events,
+			eventsList: events ? events : [],
             travellers: travellers,
             demands: demands,
-            messages: require(`../../locales/${context.locale}.json`)
+            messages: require(`../../locales/${context.locale}.json`),
+            user: req.session.get('user')
 		}
     };
-}
 
+  })
 

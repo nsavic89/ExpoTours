@@ -1,8 +1,7 @@
-import { useState } from "react";
-import { useTranslations } from "use-intl";
-import Layout from "../components/layout"
-import styling from "../styles/home.module.css"
-import Image from 'next/image'
+import { useState } from "react"
+import { useTranslation } from 'react-i18next'
+import MainLayout from '../components/MainLayout'
+import '../styles/home.css'
 
 
 
@@ -38,18 +37,18 @@ const cars = [{
 
 export default function Location() {
 
-    const [state, setState] = useState({id:1,name:'mrcs',value:3,label:'Mercedes E'})
-    const t = useTranslations()
+    const [state, setState] = useState({id:1,name:'mrce',value:3,label:'Mercedes E'})
+    const { t } = useTranslation()
     
     return(
-        <Layout>
-            <div className={styling.main} style={{ fontSize: 16, justifyContent:'start' }}>
-                <div className={styling.shadowBoxDiv} style={{ marginTop: 0 }}>
-                    <div>
-                        <div  className={styling.locationBtnDiv}>{cars.map(
+        <MainLayout>
+            <div className='main' style={{ fontSize: 16, justifyContent:'start' }}>
+                <div className='shadowBoxDiv' style={{ marginTop: '4rem' }}>
+                    <div> 
+                        <div className='locationBtnDiv'>{cars.map(
                             item => (
                                 <button 
-                                    className={styling.locationBtn} 
+                                    className='locationBtn'
                                     onClick={() => setState(item)}
                                     style={
                                         item.id===state.id ? 
@@ -62,7 +61,8 @@ export default function Location() {
 
                         <br/>
 
-                        {Array.from(Array(state.value)).map(
+                        <div style={{ overflow: 'auto', height: '80vh' }}>
+                            {Array.from(Array(state.value)).map(
                             (_,inx) => (
                                 <img
                                 //loader={({src}) => src}
@@ -72,21 +72,11 @@ export default function Location() {
                                     style={{ margin: '5px', marginLeft: '25%' }}
                                 />
                             )
-                        )}
+                        )}</div>
                     </div>
                 </div>
             </div>
-        </Layout>
+        </MainLayout>
     )
 }
 
-export async function getStaticProps(context) {
-    return {
-		props: {
-			// You can get the messages from anywhere you like, but the recommended
-			// pattern is to put them in JSON files separated by language and read 
-			// the desired one based on the `locale` received from Next.js. 
-			messages: require(`../locales/${context.locale}.json`)
-		}
-    };
-}
