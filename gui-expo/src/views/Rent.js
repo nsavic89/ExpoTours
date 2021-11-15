@@ -61,18 +61,21 @@ export default function Location() {
 
                         <br/>
 
-                        <div style={{ overflow: 'auto', height: '80vh' }}>
+                        <div style={{ overflow: 'auto', height: '60vh', width: 1000 }}>
+                            <div style={{ margin: 'auto', width: 820 }}> 
                             {Array.from(Array(state.value)).map(
                             (_,inx) => (
                                 <img
                                 //loader={({src}) => src}
                                     src={`/location/${state.name}/img${inx+1}.jpg`}
                                     alt="Picture not loaded"
-                                    width='50%'
-                                    style={{ margin: '5px', marginLeft: '25%' }}
+                                    width={400}
+                                    height={300}
+                                    style={{ margin: '5px' }}
                                 />
                             )
                         )}</div>
+                        </div>
                     </div>
                 </div>
             </div>

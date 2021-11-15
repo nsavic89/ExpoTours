@@ -167,6 +167,39 @@ def send_payment_invitation(request, pk):
         return Response('ERROR', status=status.HTTP_400_BAD_REQUEST)
 
 
+# payment page
+
+from django.shortcuts import redirect
+YOUR_DOMAIN = 'http://localhost:3000'
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def create_checkout_session(request,pk):
+    traveller = Traveller.objects.get(pk=pk)
+
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            line_items=[
+                {
+                    # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
+                    'price': traveller.price_id,
+                    'quantity': 1,
+                },
+            ],
+            payment_method_types=[
+              'card',
+            ],
+            mode='payment',
+            success_url=YOUR_DOMAIN + '/success',
+            cancel_url=YOUR_DOMAIN + '/warning',
+        )
+    except Exception as e:
+        return str(e)
+
+    return redirect(checkout_session.url, code=303)
+
+
+
 @api_view(['get'])
 @permission_classes([AllowAny])
 def token_verification(request):

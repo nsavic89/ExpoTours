@@ -17,6 +17,7 @@ import Login from "./admin/Login";
 import Admin from "./admin/Admin";
 import NewEventForm from "./admin/NewEventForm";
 import EventImages from "./admin/EventImages";
+import Payment from "./views/Payment";
 
 
 
@@ -34,6 +35,7 @@ function Router() {
             <Route path='/contact' element={<Contact />} />
             <Route path='/success' element={<Success />} />
             <Route path='/warning' element={<Warning />} />
+            <Route path='/payment/:id' element={<Payment />} />
             <Route path='/admin-login' element={<Login />} />
             <Route path='/admin' element={<Admin />} />
             <Route path='/admin-new-event' element={<NewEventForm />} />

@@ -15,7 +15,7 @@ export default function Payment({trv}) {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
 
-    if (query.get('success')) {
+    if (query.get('success')) { 
       console.log('Order placed! You will receive an email confirmation.');
     }
 
