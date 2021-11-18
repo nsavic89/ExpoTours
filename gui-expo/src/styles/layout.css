@@ -17,6 +17,19 @@
     background: rgba(5, 15, 31, 0.8);
     font-size: large;
   }
+
+  @media only screen and (min-width: 600px) {
+      .smallScreenMenu {
+        display: none;
+      }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .navbar {
+      display: none;
+    }
+  }
+
   
   .navbarItem {
     font-weight: bold;

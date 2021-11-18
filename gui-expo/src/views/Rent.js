@@ -61,7 +61,7 @@ export default function Location() {
 
                         <br/>
 
-                        <div style={{ overflow: 'auto', height: '60vh', width: 1000 }}>
+                        <div style={{ overflow: 'auto', height: '65vh', width: 1000 }}>
                             <div style={{ margin: 'auto', width: 820 }}> 
                             {Array.from(Array(state.value)).map(
                             (_,inx) => (

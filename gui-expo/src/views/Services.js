@@ -6,8 +6,8 @@ export default function Services() {
 
     return (
         <MainLayout>
-            <div className='main' style={{ fontSize: 16 }}>
-                <div className='shadowBoxDiv' style={{ marginTop: 50 }}>
+            <div className='main' style={{ fontSize: 14 }}>
+                <div className='shadowBoxDiv' style={{ marginTop: 80, overflow: 'auto' }}>
                     <h1>
                         Prestations
                     </h1>
