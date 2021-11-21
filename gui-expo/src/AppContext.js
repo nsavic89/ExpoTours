@@ -10,7 +10,7 @@ export default function AppContextProvider(props) {
     const [ state, setState ] = useState({})
     
     // API URL
-    let API = 'https://expotours.ch';
+    let API = 'http://expotours.ch';
     if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
         API = 'http://localhost:8000';
     }
