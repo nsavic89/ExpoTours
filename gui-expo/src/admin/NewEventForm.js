@@ -10,7 +10,8 @@ import { AppContext } from '../AppContext'
 // create new event/trip
 // includes axios post request -> save new event
 export default function NewEventForm() {
-    const server = useContext(AppContext).API
+    const context = useContext(AppContext)
+    const server = context.API
     const [nPickUps, setNpickUps] = useState(0);
     const router = useNavigate() // needed to redirect to /admin after an event added successfully
 
@@ -52,6 +53,7 @@ export default function NewEventForm() {
                                 }}
                             ).then(
                                 () => {
+                                    context.update()
                                     message.success("Evenement sauvegardé avec succèss")
                                     router('/admin')
                                 }

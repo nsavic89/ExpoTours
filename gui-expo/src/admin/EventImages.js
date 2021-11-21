@@ -17,18 +17,17 @@ export default function EventImages() {
         axios.get(`${server}/imgs`, {headers: {
             Pragma: "no-cache",
             Authorization: `Token ${localStorage.getItem('expo-token')}`
-        }}).then(
-            res => setState({...state, imgs: res.data, loaded: true})
-        ).catch(
-            () => router('/admin-login')
-        )
+        }})
+        .then( res => setState({...state, imgs: res.data, loaded: true}) )
+        .catch( () => router('/admin-login') ) 
     }, [])
 
-    if (!state.loaded) { return <div>Veuillez patienter</div>}
-    console.log(state)
+    if (!state.loaded || !context.data.loaded) { return <div>Veuillez patienter</div>}
+    
     // get images for this event
     const event = context.data.events.find(o => o.id === id)
     const imgs = state.imgs.filter(o => o.event === id)
+
 
     return (
         <div className='wrapper'>

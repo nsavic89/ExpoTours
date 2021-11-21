@@ -68,8 +68,8 @@ function Events() {
 
     // filter day, month
     // disable possiblity to display yesterday's events (or more previous ones)
-    let displayedEvents = events.filter(o => o.month >= cMonth && o.day > cDay)
-
+    let displayedEvents = events.filter(o => o.month >= cMonth)
+    
 
     // events are displayed per day of the month
     // this is why we need an array with 31 days below
