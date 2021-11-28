@@ -4,7 +4,7 @@ import MainLayout from '../components/MainLayout'
 import '../styles/home.css'
 import '../styles/buttons.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { faCalendar, faChevronDown, faHome, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import Events from '../components/Events'
 import Demand from '../components/Demand'
 
@@ -77,19 +77,28 @@ export default function ClientHome(props){
 				<button
 					type="button"
 					className='primary'
-					onClick={() => scrollView(state-1)}
-					style={{ textAlign: "left" }}
+					onClick={() => scrollView(1)}
+					style={{ textAlign: "center" }}
 				>
-					<FontAwesomeIcon icon={faChevronUp} />
+					<FontAwesomeIcon icon={faHome} />
 				</button>
 				<br/>
 				<button
 					type="button"
 					className='primary'
-					onClick={() => scrollView(state+1)}
-					style={{ textAlign: "left" }}
+					onClick={() => scrollView(2)}
+					style={{ textAlign: "center" }}
 				>
-					<FontAwesomeIcon icon={faChevronDown} />
+					<FontAwesomeIcon icon={faCalendar} />
+				</button>
+				<br/>
+				<button
+					type="button"
+					className='primary'
+					onClick={() => scrollView(3)}
+					style={{ textAlign: "center" }}
+				>
+					<FontAwesomeIcon icon={faQuestionCircle} />
 				</button>
 			</div>
         </div>

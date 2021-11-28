@@ -14,7 +14,7 @@ export default function EventImages() {
     const id = parseInt(useParams().id)
 
     useEffect(() => {
-        axios.get(`${server}/imgs`, {headers: {
+        axios.get(`${server}/imgs/`, {headers: {
             Pragma: "no-cache",
             Authorization: `Token ${localStorage.getItem('expo-token')}`
         }})

@@ -28,7 +28,7 @@
 .sideNavigation {
     position: fixed;
     top: 0;
-    margin: 100px 10px;
+    margin: 200px 10px;
     display: flex;
     flex-direction: column;
 }
@@ -195,6 +195,54 @@
 
 .demandForm > h1 {
     text-align: center;
+}
+
+/* Rent image div */
+.rentImgsWrapper {
+    overflow: auto;
+    height: 65vh;
+    width: 1000;
+}
+.rentImgsDiv {
+    margin: 'auto';
+    width: 820;
+}
+
+/* Events for the small (cell phone) screen */
+@media only screen and (max-width: 600px) {
+    .events {
+      padding: 0.5rem;
+    }
+    .filters > div {
+        padding: 0 2px;
+        font-weight: unset;
+        color:rgba(0, 0, 0, 0.7)
+    }
+    .demandForm {
+        width: 100%;
+        padding: 0 75px;
+        background: rgba(255, 255, 255, 0.9);
+    }
+    .rentmain {
+        height: 400px !important;
+    }
+    .shadowBoxDiv {
+        width: 95% !important;
+        margin-top: 25px !important;
+    }
+    .rentImgsWrapper {
+        overflow: auto;
+        height: 70vh;
+        width: 100%;
+    }
+    .rentImgsDiv {
+        margin: 'auto'; 
+        width: 98%;
+        text-align: center;
+    }
+    .locationBtn {
+        font-size: 12px !important;
+    }
 }
 
 .spinner {

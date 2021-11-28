@@ -20,8 +20,8 @@ export default function Demand() {
             
             <Form
                 name="form"
-                wrapperCol={{ span: 14 }}
-                labelCol={{ span: 6}}
+                labelCol={{ md:{span: 6}, xs:{span:24} }}
+                wrapperCol={{ md: {span:14}, xs: {span:24} }}
                 className='demandForm'
                 onFinish={
                     values => {
@@ -169,7 +169,7 @@ export default function Demand() {
                     <Input.TextArea />
                 </Form.Item>
 
-                <Form.Item wrapperCol={{ offset: 6 }}>
+                <Form.Item wrapperCol={{ md: {offset: 6} }}>
                     <button type="submit" className='primary'>
                         {t('demand.button')}
                     </button>

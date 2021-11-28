@@ -42,7 +42,7 @@ export default function Location() {
     
     return(
         <MainLayout>
-            <div className='main' style={{ fontSize: 16, justifyContent:'start' }}>
+            <div className='main rentmain' style={{ fontSize: 16, justifyContent:'start' }}>
                 <div className='shadowBoxDiv' style={{ marginTop: '4rem' }}>
                     <div> 
                         <div className='locationBtnDiv'>{cars.map(
@@ -61,8 +61,8 @@ export default function Location() {
 
                         <br/>
 
-                        <div style={{ overflow: 'auto', height: '65vh', width: 1000 }}>
-                            <div style={{ margin: 'auto', width: 820 }}> 
+                        <div className="rentImgsWrapper">
+                            <div className='rentImgsDiv'> 
                             {Array.from(Array(state.value)).map(
                             (_,inx) => (
                                 <img

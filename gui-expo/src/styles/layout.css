@@ -18,17 +18,7 @@
     font-size: large;
   }
 
-  @media only screen and (min-width: 600px) {
-      .smallScreenMenu {
-        display: none;
-      }
-  }
-
-  @media only screen and (max-width: 600px) {
-    .navbar {
-      display: none;
-    }
-  }
+  
 
   
   .navbarItem {
@@ -74,3 +64,22 @@
 
   .langLink:hover{ cursor: pointer;}
   
+
+  @media only screen and (min-width: 600px) {
+    .smallScreenMenu {
+      display: none;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+  .navbar {
+    display: none;
+  }
+  .smallScreenMenu {
+    background-color: black;
+    color: white;
+  }
+  .footer {
+    display: none;
+  }
+}

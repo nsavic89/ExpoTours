@@ -69,6 +69,12 @@ function Events() {
     // filter day, month
     // disable possiblity to display yesterday's events (or more previous ones)
     let displayedEvents = events.filter(o => o.month >= cMonth)
+
+    // if the selected month is the current month (cMonth)
+    // then only events after today should be displayed
+    if (state.month===cMonth) {
+        displayedEvents = events.filter(o => o.day > cDay)
+    }
     
 
     // events are displayed per day of the month
@@ -110,14 +116,6 @@ function Events() {
             <MySelector list={themes} state={state.theme}
                 getNewState={value => setState({...state, theme: value})} 
             />
-            <div style={{ color: 'rgb(100,180,180)' }}>
-                {
-                    displayedEvents.length === 0
-                    ? <span className='textDanger'>{ t('home.no-events') }</span>
-                    : <span>Events: { displayedEvents.length }</span>
-                }
-                
-            </div>
         </div>
     )
 

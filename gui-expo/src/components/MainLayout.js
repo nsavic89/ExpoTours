@@ -26,9 +26,9 @@ export default function Layout({ children }) {
     return(
         <div>
             <div className='wrapper'>
-                <Dropdown overlay={menu} className='smallScreenMenu'>
+                <Dropdown overlay={menu} className='smallScreenMenu' trigger={['click']}>
                     <Button>
-                        <FontAwesomeIcon icon={faBars} />
+                        <span><FontAwesomeIcon icon={faBars} /></span> <span style={{ paddingLeft: 5 }}>Menu</span>
                     </Button>
                 </Dropdown>
                 <div className='navbar'>
