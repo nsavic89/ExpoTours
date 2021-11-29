@@ -113,9 +113,9 @@ function Events() {
             <MySelector list={years} state={state.year} 
                 getNewState={value => setState({...state, year: value})} 
             />
-            <MySelector list={themes} state={state.theme}
+            <span className='selectorHiddenSmallScr'><MySelector list={themes} state={state.theme}
                 getNewState={value => setState({...state, theme: value})} 
-            />
+            /></span>
         </div>
     )
 
