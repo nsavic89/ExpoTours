@@ -165,8 +165,8 @@ export default function Booking(props) {
                             nPeople: 0,
                             pickup: pickups[0].name
                         }}
-                        labelCol={{ span: 8 }}
-                        wrapperCol={{ span: 12 }}
+                        labelCol={{ md: { span: 8 }, xs: {span: 24} }}
+                        wrapperCol={{ md: { span: 12 }, xs: {span: 24}  }}
                         style={{ minWidth: 450, width: 550 }}
                         onFinish={
                             values => {

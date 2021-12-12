@@ -297,6 +297,7 @@
     font-weight: bold;
     padding: 10px 0;
     background-color: black;
+    color: wheat;
     outline: none;
     border-radius: 5px;
     border: none;
@@ -304,4 +305,14 @@
 
 .mymessage {
     margin-top: 5rem;
+}
+
+/* other pages - main content - about, contact, general conditions ... */
+.main-other-pages {
+    padding: 75px 25px;
+    background-color: rgb(255, 239, 217);
+    min-height: 100vh;
+    overflow: auto;
+    font-size: 16px;
+    text-align: justify;
 }

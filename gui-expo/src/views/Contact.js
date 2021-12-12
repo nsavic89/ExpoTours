@@ -10,8 +10,8 @@ export default function Contact() {
         <Layout>
             <div className='main'>
                 <div className='shadowBoxDiv'>
-                    <span><FontAwesomeIcon icon={faEnvelope}/> <a href="mailto:info@expo-tours.ch">
-                        info@expo-tours.ch
+                    <span><FontAwesomeIcon icon={faEnvelope}/> <a href="mailto:info@expotours.ch">
+                        info@expotours.ch
                     </a></span>
                     <br/> <br/>
 

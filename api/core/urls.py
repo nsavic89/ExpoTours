@@ -12,7 +12,8 @@ from .views import (
     client_events_imgs,
     client_booking,
     client_demand,
-    create_checkout_session
+    create_checkout_session,
+    create_checkout_session2
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -33,6 +34,7 @@ urlpatterns = [
     path('client-booking/', client_booking),
     path('client-demand/', client_demand),
     path('payment/<int:pk>', create_checkout_session),
+    path('payment2/<int:pk>', create_checkout_session2),
 
     # ADMIN SIDE
     path('', include(router.urls)),

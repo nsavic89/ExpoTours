@@ -42,8 +42,8 @@ export default function Location() {
     
     return(
         <MainLayout>
-            <div className='main rentmain' style={{ fontSize: 16, justifyContent:'start' }}>
-                <div className='shadowBoxDiv' style={{ marginTop: '4rem' }}>
+            <div className='main-other-pages'>
+                <div>
                     <div> 
                         <div className='locationBtnDiv'>{cars.map(
                             item => (
@@ -70,7 +70,6 @@ export default function Location() {
                                     src={`/location/${state.name}/img${inx+1}.jpg`}
                                     alt="Picture not loaded"
                                     width={400}
-                                    height={300}
                                     style={{ margin: '5px' }}
                                 />
                             )

@@ -11,8 +11,9 @@ export default function About() {
 
     return (
         <Layout>
-            <div className='main'>
-                <div style={{ fontSize: 16, width: 800, marginTop: '70px' }} className='shadowBoxDiv' >
+            <div className='main-other-pages'>
+                <div>
+                    <h1>Qui sommes nous?</h1>
                     <p>
                         Expo-tours.ch vous propose la location d'AUTOCARS grand luxe sans signe
                         distinctif avec chauffeurs qualifiés. Nous sommes spécialisés dans
@@ -42,10 +43,10 @@ export default function About() {
                         Nos tarifs sont très abordables.
                         Consultez nous pour toutes remises de prix:
                     </p>
-
+                    <br/><br/>
                     <p>
-                        <span><FontAwesomeIcon icon={faEnvelope}/> <a href="mailto:info@expo-tours.ch">
-                            info@expo-tours.ch
+                        <span><FontAwesomeIcon icon={faEnvelope}/> <a href="mailto:info@expotours.ch">
+                            info@expotours.ch
                         </a></span>
                         <br/> <br/>
 

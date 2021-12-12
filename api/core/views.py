@@ -135,10 +135,22 @@ def send_facture_devis(request, pk):
     )
 
     demand = Demand.objects.get(pk=pk)
+    demand.price_id = price_obj.id
     demand.status = 'Facturé'
     demand.save()
 
-    # here should be email sent to the corresponing user
+    # send email with the payment link
+    try:
+        send_mail(
+            'ExpoTours.ch - paiement pour {}'.format(request.data['name']), 
+            'ExpoTours.ch vous invite à procéder au paiement de {}. Veuillez cliquer sur le lien: http://localhost:3000/payment2/{}'.format(request.data['name'], demand.id),
+            EMAIL_HOST_USER,
+            [demand.email],
+            fail_silently=False
+        )
+
+    except:
+        return Response('ERROR', status=status.HTTP_400_BAD_REQUEST)
 
     return Response('CREATED', status=status.HTTP_201_CREATED)
 
@@ -183,6 +195,33 @@ def create_checkout_session(request,pk):
                 {
                     # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
                     'price': traveller.price_id,
+                    'quantity': 1,
+                },
+            ],
+            payment_method_types=[
+              'card',
+            ],
+            mode='payment',
+            success_url=YOUR_DOMAIN + '/success',
+            cancel_url=YOUR_DOMAIN + '/warning',
+        )
+    except Exception as e:
+        return str(e)
+
+    return redirect(checkout_session.url, code=303)
+
+# payment for demand from client -> not event organized by expotours
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def create_checkout_session2(request,pk):
+    demand = Demand.objects.get(pk=pk)
+
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            line_items=[
+                {
+                    # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
+                    'price': demand.price_id,
                     'quantity': 1,
                 },
             ],

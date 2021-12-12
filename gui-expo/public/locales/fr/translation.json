@@ -10,14 +10,15 @@
         "location": "Location",
         "about": "À propos de nous",
         "services": "Prestations",
-        "contact": "Contact"
+        "contact": "Contact",
+        "general-conditions": "Conditions générals"
     },
     "home": {
         "phone": "Téléphone",
         "discover": "Decouvrez nos offres",
         "ask": "Demander un devis",
         "no-events": "Aucun résultat",
-        "no-events-found-alert": "Aucun reésultat trouvé. Essayez avec une autre date ou un autre sujet"
+        "no-events-found-alert": "Aucun résultat trouvé. Essayez avec une autre date ou un autre sujet"
     },
     "month": {
         "0": "janvier",
@@ -80,17 +81,27 @@
         "organization": "Société",
         "address": "Adresse",
         "addressPlaceholder": "Rue et No",
-        "cityAndZip": "Code postal et Ville",
+        "cityAndZip": "Code postal | Ville",
         "email": "E-mail",
         "phone": "Téléphone",
         "startLocation": "Depart",
-        "locationPlaceholder": "Rue et No, Ville, Pay",
+        "locationPlaceholder": "Rue et No, Ville, Pays",
         "dateTime": "Durée du voyage",
         "endLocation": "Destination",
         "startDateTime": "Depuis",
         "endDateTime": "Jusqu'à",
         "nPeople": "Nombre de personnes",
         "comment": "Commentaire/Remarque",
+        "tripType": "Type de service",
+        "simpleTrip": "Aller simple",
+        "roundTrip": "Aller retrour",
+        "dayTrip": "Mise à disposition journée",
+        "fewDaysTrip": "Voyage de plusieurs jours",
+        "excursionTrip": "Excursion",
+        "shuttleServiceTrip": "Service de navettes",
+        "cityTourTrip": "City tours",
+        "otherTrip": "Other",
+        "aeroportTrip": "Transfert aéroport (Genève | Zurich | Basel)",
         "button": "Demander"
     }, 
     "messages": {

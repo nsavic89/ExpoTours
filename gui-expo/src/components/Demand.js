@@ -1,6 +1,6 @@
 import '../styles/home.css'
 import '../styles/buttons.css'
-import { DatePicker, Form, Input, InputNumber } from 'antd'
+import { DatePicker, Form, Input, InputNumber, Select } from 'antd'
 import { useTranslation } from 'react-i18next'
 import axios from 'axios'
 import {useNavigate} from "react-router-dom";
@@ -14,6 +14,33 @@ export default function Demand() {
     let router = useNavigate()
     const context = useContext(AppContext)
     const server = context.API
+
+    /*
+        update 12.dec 21
+        type of trip
+
+        "simpleTrip": "Aller simple",
+        "roundTrip": "Aller retrour",
+        "dayTrip": "Mise à disposition journée",
+        "fewDaysTrip": "Voyage de plusieurs jours",
+        "excursionTrip": "Excursion",
+        "shuttleServiceTrip": "Service de navettes",
+        "cityTourTrip": "City tours",
+        "aeroportTrip": "Transfère aéroport (Genève | Zurich | Basel)",
+    */
+    const tripType = [
+        "simpleTrip",
+        "roundTrip",
+        "dayTrip",
+        "fewDaysTrip",
+        "excursionTrip",
+        "shuttleServiceTrip",
+        "cityTourTrip",
+        "aeroportTrip",
+        "otherTrip"
+    ]
+
+
 
     return (
         <div className='arrange'>
@@ -111,6 +138,25 @@ export default function Demand() {
                     ]}
                 >
                     <Input />
+                </Form.Item>
+
+                <Form.Item
+                    name="trip_type"
+                    required={true}
+                    label={t("demand.tripType")}
+                    rules={[
+                        { required: true, message: t('field-required') }
+                    ]}
+                >
+                    <Select>
+                        {tripType.map(
+                            item => (
+                                <Select.Option value={item} key={item}>
+                                    {t(`demand.${item}`)}
+                                </Select.Option>
+                            )
+                        )}
+                    </Select>
                 </Form.Item>
 
                 <Form.Item

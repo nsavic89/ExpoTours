@@ -10,7 +10,8 @@
         "location": "Rental",
         "about": "About",
         "services": "Services",
-        "contact": "Contact"
+        "contact": "Contact",
+        "general-conditions": "General conditions"
     },
     "home": {
         "phone": "Phone",
@@ -91,6 +92,16 @@
         "endDateTime": "End date/time",
         "nPeople": "Number of persons",
         "comment": "Comment",
+        "tripType": "Type of trip",
+        "simpleTrip": "One-way fare",
+        "roundTrip": "Round trip",
+        "dayTrip": "Full day trip",
+        "fewDaysTrip": "Several days trip",
+        "excursionTrip": "Excursion",
+        "shuttleServiceTrip": "Shuttle service",
+        "cityTourTrip": "City tours",
+        "aeroportTrip": "Airport transer (Genève | Zurich | Basel)",
+        "otherTrip": "Autre",
         "button": "Submit"
     },
     "messages": {
