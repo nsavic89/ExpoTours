@@ -9,6 +9,8 @@ import { useContext, useEffect, useRef, useState } from "react"
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AppContext } from "../AppContext"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faInfo, faInfoCircle } from "@fortawesome/free-solid-svg-icons"
 
 
 // this page is used to let users register for an event
@@ -25,6 +27,7 @@ export default function Booking(props) {
     // second wrapper ref
     // after clicking on book now, the wrapper will be focused
     const mainRef = useRef(null)
+    const dscrRef = useRef(null)
     const bookRef = useRef(null)
     useEffect(() => {mainRef.current.scrollIntoView({})},[])
 
@@ -143,12 +146,41 @@ export default function Booking(props) {
 
                     <div>
                         <button
+                            style={{ width: 300 }}
+                            className='secondary'
+                            onClick={() => dscrRef.current.scrollIntoView({behavior: 'smooth'})}
+                        >
+                            <span><FontAwesomeIcon icon={faInfoCircle} /> {t('booking.go-to-info')}</span>
+                        </button>
+                    </div>
+                    <br/>
+                    <div>
+                        <button
+                            style={{ width: 300 }}
                             className='primary'
                             onClick={() => bookRef.current.scrollIntoView({behavior: 'smooth'})}
                         >
                             {t('booking.book-now-button')}
                         </button>
                     </div>
+                </div>
+            </div>
+
+            <div className="wrapperBooking" ref={dscrRef}>
+                <h1><FontAwesomeIcon icon={faInfo}/> Information en détail</h1>
+                <div style={{ width: "95%" }}>{ event.info.split("/").map(
+                    (item,inx)=>
+                    item.trim().substr(0,2)==="**" ? <h3 key={inx}>{item.substr(2,item.length)}</h3> : <p key={inx}>{item}</p>
+                ) }</div>
+
+                <div style={{ marginTop: 50 }}>
+                    <button
+                        style={{ width: 300 }}
+                        className='primary'
+                        onClick={() => bookRef.current.scrollIntoView({behavior: 'smooth'})}
+                    >
+                        {t('booking.book-now-button')}
+                    </button>
                 </div>
             </div>
     

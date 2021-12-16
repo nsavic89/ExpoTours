@@ -96,6 +96,13 @@ export default function NewEventForm() {
                     </Form.Item>
 
                     <Form.Item
+                        name="info"
+                        label="Description"
+                    >
+                        <Input.TextArea rows={5} placeholder="Tamo gdje hoces da bude novi red stavis / a za naslov stavis ispred naslova /** a na kraju /" />
+                    </Form.Item>
+
+                    <Form.Item
                         name="start"
                         label="Départ de"
                         rules={[{required: true, message: "Obligatoire"}]}
@@ -135,9 +142,11 @@ export default function NewEventForm() {
                         <InputNumber min={1} />
                     </Form.Item>
 
+
                     <Form.Item wrapperCol={{ offset: 6 }}>
                         <h3>Arrêts:</h3>
                     </Form.Item>
+
                     {
                         Array.from(Array(nPickUps)).map(
                             (_, inx) => (

@@ -37,19 +37,17 @@ export default function Admin() {
     const [state, setState] = useState(false) // render content
     const [selectedEvent, setSelectedEvent] = useState(0)
 
-    const headers = () => {
-        return {
-            Pragma: "no-cache",
-            Authorization: `Token ${localStorage.getItem('expo-token')}`
-        }
+    const headers = {
+        Pragma: "no-cache",
+        Authorization: `Token ${localStorage.getItem('expo-token')}`
     }
 
     // json to js object route in each event
     useEffect(() => {
         Promise.all([
-            axios.get(`${server}/events/`, {headers:headers()}),
-            axios.get(`${server}/travellers/`, {headers:headers()}),
-            axios.get(`${server}/demands/`, {headers:headers()})
+            axios.get(`${server}/events/`, {headers:headers}),
+            axios.get(`${server}/travellers/`, {headers:headers}),
+            axios.get(`${server}/demands/`, {headers:headers})
         ])
         .then(
             res => {
@@ -127,9 +125,8 @@ export default function Admin() {
                                         <>
                                             <Popconfirm
                                                 title="Vous êtes sûr?"
-                                                onConfirm={() => axios.delete(
-                                                        `${server}/events/${event.id}`, {headers:headers()}
-                                                    ).then(() => {
+                                                onConfirm={() => axios.delete(`${server}/events/${event.id}/`, {headers:headers})
+                                                    .then(() => {
                                                         message.warning("Evenement effacé")
                                                         setEvents(events.filter(o => o.id !== event.id))
                                                     }).catch(() => message.warning("Une erreur s'est produit"))
@@ -189,7 +186,7 @@ export default function Admin() {
                         layout='inline'
                         onFinish={
                             values => {
-                                axios.get(`${server}/send-payment-invitation/${values.event}`, {headers:headers()})
+                                axios.get(`${server}/send-payment-invitation/${values.event}`, {headers:headers})
                                 .then(() => message.success("L'invitation envoyée"))
                                 .catch(() => message.warning('Sans succès...essayez plus tard...'))
                             }
@@ -249,7 +246,7 @@ export default function Admin() {
                                         <Popconfirm
                                             title="Vous êtes sûr?"
                                             onConfirm={() => axios.delete(
-                                                    `${server}/travellers/${trv.id}`, {headers:headers()}
+                                                    `${server}/travellers/${trv.id}/`, {headers:headers}
                                                 ).then(() => {
                                                     message.warning("Voyageur effacée")
                                                     setTravellers(travellers.filter(o => o.id !== trv.id))
@@ -320,7 +317,7 @@ export default function Admin() {
                                         <Popconfirm
                                                 title="Vous êtes sûr?"
                                                 onConfirm={() => axios.delete(
-                                                        `${server}/demands/${demand.id}`, {headers:headers()}
+                                                        `${server}/demands/${demand.id}/`, {headers:headers}
                                                     ).then(() => {
                                                         message.warning("Demande effacée")
                                                         setDemands(demands.filter(o => o.id !== demand.id))

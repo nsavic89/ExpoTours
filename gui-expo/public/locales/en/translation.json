@@ -71,6 +71,7 @@
         "from-date": "From",
         "to-date": "to",
         "book-now-button": "Book now!",
+        "go-to-info": "Trip description",
         "final-price": "Total",
         "successful-msg": "Congrats! You will receive a confirmation email shortly",
         "failed-msg": "Error. Please try later"

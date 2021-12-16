@@ -12,6 +12,7 @@ class Event(models.Model):
     date2 = models.CharField(max_length=50)
     price = models.IntegerField()
     route = models.TextField(blank=True)
+    info = models.TextField(blank=True)
 
 class Traveller(models.Model):
     first_name = models.CharField(max_length=50)

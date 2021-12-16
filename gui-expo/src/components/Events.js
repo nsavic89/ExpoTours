@@ -59,16 +59,20 @@ function Events() {
             themes.push(events[i].theme)
         }
     }
+    console.log(events)
 
 
     // const months, years and themes
     const months = Array.from(Array(12).keys())
     const years = Array.from({length: 5}, (_, i) => i + 2021)
 
+    let displayedEvents = events
 
     // filter day, month
     // disable possiblity to display yesterday's events (or more previous ones)
-    let displayedEvents = events.filter(o => o.month >= cMonth)
+    if (state.year <= cYear) {
+        displayedEvents = events.filter(o => o.month >= cMonth)
+    }
 
     // if the selected month is the current month (cMonth)
     // then only events after today should be displayed
@@ -76,23 +80,19 @@ function Events() {
         displayedEvents = events.filter(o => o.day > cDay)
     }
     
-
     // events are displayed per day of the month
     // this is why we need an array with 31 days below
     const days = Array.from({length: 31}, (_, i) => i + 1)
-
 
     // filter events to the selected month, year and theme
     displayedEvents = displayedEvents.filter(
         o => o.month === state.month + 1 && o.year === state.year
     )
 
-
     if (state.theme !== '-') {
         // if all themes -> no filter related to the theme
         displayedEvents = displayedEvents.filter(o => o.theme === state.theme)
     }
-
 
     // get day name for events of a given day
     // based on the day of the month
@@ -128,6 +128,7 @@ function Events() {
             </span>
         </div>
     )
+
 
     const eventsWrapper = (
         <div className='eventsContainer'>
