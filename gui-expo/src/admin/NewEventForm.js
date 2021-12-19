@@ -1,9 +1,17 @@
 import '../styles/admin.css'
 import { DatePicker, Form, Input, InputNumber, message } from 'antd'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { AppContext } from '../AppContext'
+import moment from 'moment'
+
+// UPDATE 18-Dec-2021
+// Text editor Draft
+import MyEditor from './MyEditor'
+import { convertToRaw, EditorState, convertFromRaw } from 'draft-js'
+
+
 
 
 
@@ -15,11 +23,60 @@ export default function NewEventForm() {
     const [nPickUps, setNpickUps] = useState(0);
     const router = useNavigate() // needed to redirect to /admin after an event added successfully
 
+    // edit text in my editor
+    // state (i.e. editor state) and onChange event
+    const [state, setState] = useState({ editorState: EditorState.createEmpty() })
+
+    
+    // UPDATE 17-Dec-2021
+    // load existing event to allow editing of an added event
+    const eventId = parseInt(useParams().id) 
+    const [form] = Form.useForm()
+    let event = {}
+
+    // set number of pick-ups
+    useEffect(() => {
+        if (eventId !== 0 && context.data.loaded) {
+            event = context.data.events.find(o => o.id === eventId) 
+            let route = JSON.parse(event.route)
+            let n = Object.keys(route).length
+
+            setNpickUps(n)
+            form.setFieldsValue({
+                name: event.name,
+                theme: event.theme,
+                start: event.start,
+                end: event.end,
+                price: event.price,
+                date1: moment(event.date1, 'DD-MM-YYYY'),
+                date2: moment(event.date2, 'DD-MM-YYYY')
+            })
+
+            // set route stops
+            // set form values for route
+            let routeObj = {}
+            let stopNames = Object.keys(route)
+            let stopPrices = Object.values(route)
+
+            for (let i=0; i<n; i++) {
+                routeObj[`pickupName_${i}`] = stopNames[i];
+                routeObj[`pickupPrice_${i}`] = stopPrices[i];
+            }
+            form.setFieldsValue(routeObj)
+
+            // set editor information text
+            setState({ editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(event.info))) })
+        }
+    }, [])
+
+    
+
     return (
         <div className='wrapper'>
             <div>
                 <Form
-                    name="event"
+                    name="eventForm"
+                    form={form}
                     wrapperCol={{ span: 12 }}
                     labelCol={{ span: 6 }}
                     className='form'
@@ -29,8 +86,8 @@ export default function NewEventForm() {
                             // route is an object with place: price elements
                             values.date1 = values.date1.format('DD-MM-YYYY');
                             values.date2 = values.date2.format('DD-MM-YYYY');
-                            let route = {}
 
+                            let route = {}
                             for (let key in values) {
                                 if (key.split('_')[0] === 'pickupName') {
                                     let cityNo = key.split('_')[1]
@@ -42,12 +99,24 @@ export default function NewEventForm() {
                             }
                             values['route'] = JSON.stringify(route)
 
+                            // get event description from myEditor
+                            // update from 19-Dec-2021
+                            values['info'] = JSON.stringify(convertToRaw( state.editorState.getCurrentContent() ))
+
                             // submit to server -> POST request
                             // axios
-                            axios.post(
-                                `${server}/events/`,
-                                values,
-                                {headers: {
+
+                            // PUT request
+                            let url = `${server}/events/`
+                            if (eventId !== 0) {
+                                url = `${url}${eventId}/`
+                            }
+
+                            axios({
+                                method: eventId===0 ? 'POST' : 'PUT',
+                                url: url,
+                                data: values,
+                                headers: {
                                     Pragma: "no-cache",
                                     Authorization: `Token ${localStorage.getItem('expo-token')}`
                                 }}
@@ -99,7 +168,7 @@ export default function NewEventForm() {
                         name="info"
                         label="Description"
                     >
-                        <Input.TextArea rows={5} placeholder="Tamo gdje hoces da bude novi red stavis / a za naslov stavis ispred naslova /** a na kraju /" />
+                        <MyEditor setState={setState} editorState={state.editorState} />
                     </Form.Item>
 
                     <Form.Item

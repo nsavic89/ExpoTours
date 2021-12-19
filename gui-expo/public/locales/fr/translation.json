@@ -7,8 +7,9 @@
     "book": "Réserver",
     "nav": {
         "home": "Acceuil",
-        "location": "Location",
+        "rent": "Location",
         "about": "À propos de nous",
+        "legislation": "Legislation",
         "services": "Prestations",
         "contact": "Contact",
         "general-conditions": "Conditions générals"

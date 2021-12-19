@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 
-const menuItems = ['home', 'services', 'location', 'general-conditions', 'about', 'contact']
+const menuItems = ['home', 'services', 'rent', 'general-conditions', 'legislation', 'about', 'contact']
 
 export default function Layout({ children }) {
     const { t, i18n } = useTranslation();

@@ -12,6 +12,11 @@ import { AppContext } from "../AppContext"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faInfo, faInfoCircle } from "@fortawesome/free-solid-svg-icons"
 
+// Update 19-Dec-2021
+// Description of the event - MyEvent (=draft-js)
+import { Editor, convertFromRaw, EditorState } from "draft-js"
+
+
 
 // this page is used to let users register for an event
 export default function Booking(props) {
@@ -29,7 +34,7 @@ export default function Booking(props) {
     const mainRef = useRef(null)
     const dscrRef = useRef(null)
     const bookRef = useRef(null)
-    useEffect(() => {mainRef.current.scrollIntoView({})},[])
+    //useEffect(() => {mainRef.current.scrollIntoView({})},[])
 
     setTimeout(() => setState(state === imgs.length ? 0 : state+1), 5000)
 
@@ -42,7 +47,9 @@ export default function Booking(props) {
     // load imgs of this event
     event = context.data.events.find(o => o.id === id)
 	imgs = context.data.eventsImgs.filter(o => o.event === id)	
-    
+
+    // Update 19-Dec-2021 -> get info parsed
+    const stateForEditor = convertFromRaw( JSON.parse(event.info) )
 	
 
 	// pickups are needed for users to decide where they want to join
@@ -166,14 +173,15 @@ export default function Booking(props) {
                 </div>
             </div>
 
-            <div className="wrapperBooking" ref={dscrRef}>
-                <h1><FontAwesomeIcon icon={faInfo}/> Information en détail</h1>
-                <div style={{ width: "95%" }}>{ event.info.split("/").map(
-                    (item,inx)=>
-                    item.trim().substr(0,2)==="**" ? <h3 key={inx}>{item.substr(2,item.length)}</h3> : <p key={inx}>{item}</p>
-                ) }</div>
+            <div className="wrapperBookingInfo" ref={dscrRef} style={{ justifyContent:'space-between' }}>
+                <div>
+                    <h1><FontAwesomeIcon icon={faInfo}/> Information en détail</h1>
+                    <div style={{ width: "95%" }}>
+                        <Editor editorState={ EditorState.createWithContent(stateForEditor) } readOnly={ true } />
+                    </div>
+                </div>
 
-                <div style={{ marginTop: 50 }}>
+                <div style={{ marginBottom: 25 }}>
                     <button
                         style={{ width: 300 }}
                         className='primary'
@@ -199,7 +207,6 @@ export default function Booking(props) {
                         }}
                         labelCol={{ md: { span: 8 }, xs: {span: 24} }}
                         wrapperCol={{ md: { span: 12 }, xs: {span: 24}  }}
-                        style={{ minWidth: 450, width: 550 }}
                         onFinish={
                             values => {
                                 setSpin(true);

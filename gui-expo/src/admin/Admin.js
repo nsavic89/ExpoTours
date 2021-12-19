@@ -3,7 +3,7 @@
 import '../styles/home.css'
 import '../styles/admin.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalculator, faExclamationTriangle, faImage, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faCalculator, faEdit, faExclamationTriangle, faImage, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { Link, useNavigate } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
 import { message, Popconfirm } from 'antd'
@@ -91,7 +91,7 @@ export default function Admin() {
             <div className='header'>
                 <div><h1>Evenements</h1></div>
                 <div>
-                    <Link to="/admin-new-event">
+                    <Link to="/admin-new-event/0">
                         <button className='primary'>
                             Créer nouveau
                         </button>
@@ -107,7 +107,7 @@ export default function Admin() {
                 : <table className='table'>
                     <thead>
                         <tr>
-                            <th className='tableCell'>.</th>
+                            <th className='tableCell' style={{ width: 100 }}>.</th>
                             <th className='tableCell'>Dates</th>
                             <th className='tableCell'>Titre</th>
                             <th className='tableCell'>Sujet</th>
@@ -138,6 +138,12 @@ export default function Admin() {
                                                     <FontAwesomeIcon icon={faTrashAlt} />
                                                 </button>
                                             </Popconfirm>
+
+                                            <Link to={`/admin-new-event/${event.id}`} style={{ marginLeft: '4px' }}>
+                                                <button type="button" className='btnDefault'>
+                                                    <FontAwesomeIcon icon={faEdit} />
+                                                </button>
+                                            </Link>
 
                                             <Link to={`/admin-images/${event.id}`}>
                                                 <button type="button" style={{ margin: '4px', borderRadius: '5px', outline: 'none', border: 'none' }}>
