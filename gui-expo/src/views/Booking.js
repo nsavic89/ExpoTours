@@ -34,7 +34,7 @@ export default function Booking(props) {
     const mainRef = useRef(null)
     const dscrRef = useRef(null)
     const bookRef = useRef(null)
-    //useEffect(() => {mainRef.current.scrollIntoView({})},[])
+    useEffect(() => {mainRef.current.scrollIntoView({})},[])
 
     setTimeout(() => setState(state === imgs.length ? 0 : state+1), 5000)
 
@@ -200,6 +200,7 @@ export default function Booking(props) {
                     <Form
                         form={form}
                         name="booking"
+                        className="bookingForm"
                         autoComplete="off"
                         initialValues={{
                             nPeople: 0,

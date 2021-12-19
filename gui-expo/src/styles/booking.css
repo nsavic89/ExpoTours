@@ -8,6 +8,10 @@
     padding-top: 4rem;
 }
 
+.bookingForm {
+    min-width: 600px;
+}
+
 .wrapperBookingInfo {
     min-height: 100vh;
     margin: auto;
@@ -17,6 +21,7 @@
     align-items: center;
     justify-content: center;
     padding-top: 4rem;
+    text-align: justify;
 }
 
 .wrapper > div {
@@ -38,7 +43,11 @@ h1 {
 
 @media only screen and (max-width: 600px) {
     .wrapperBookingInfo {
-        width: 100%;
-        padding: 5;
+        margin: auto;
+        width: 95%;
+    }
+    .bookingForm {
+        margin: auto;
+        min-width: 95%;
     }
 }
