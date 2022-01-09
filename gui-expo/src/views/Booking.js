@@ -96,11 +96,10 @@ export default function Booking(props) {
                 className='wrapperBooking'
                 style={{
                     color: 'rgb(240, 240, 240)',
-                    fontSize: '1rem',
                     backgroundColor: imgs[0] ? 'black' : 'silver'
                 }}
             >
-                <div style={{ opacity: 0.5 }}>
+                <div style={{ opacity: 0.75 }}>
                     {
                         imgs[0] ? 
                         <img
@@ -117,10 +116,9 @@ export default function Booking(props) {
                     style={{ 
                         zIndex: 1,
                         textAlign: 'center',
-                        fontSize: 22,
-                        background: imgs[0] ? 'rgba(0,0,0,0.45)' : 'rgb(80,80,80)',
+                        background: imgs[0] ? 'rgba(0,0,0,0.65)' : 'rgb(80,80,80)',
                         borderRadius: 15,
-                        padding: 50
+                        padding: 25
                     }}
                 >
                     <div><h1>{ event.name } {t('booking.at-place')} {event.end}</h1></div>

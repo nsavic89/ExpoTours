@@ -91,7 +91,6 @@
 .eventsList {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     overflow-x: hidden;
     width: 1000px;
     scroll-behavior: smooth;
@@ -208,66 +207,11 @@
     width: 820;
 }
 
-/* Events for the small (cell phone) screen */
-@media only screen and (max-width: 600px) {
-    .events {
-      padding: 0.25rem;
-    }
-    .events > div {
-        padding: unset;
-    }
-    .filters > div {
-        padding: 0 2px;
-        font-weight: unset;
-        color:rgba(0, 0, 0, 0.7)
-    }
-    .selectorHiddenSmallScr { 
-        visibility: hidden;
-        display: none;
-    } 
-    .demandForm {
-        width: 100%;
-        padding: 0 75px;
-        background: rgba(255, 255, 255, 0.9);
-    }
-    .rentmain {
-        height: 400px !important;
-    }
-    .shadowBoxDiv {
-        width: 95% !important;
-        margin-top: 25px !important;
-    }
-    .rentImgsWrapper {
-        overflow: auto;
-        height: 70vh;
-        width: 100%;
-    }
-    .rentImgsDiv {
-        margin: 'auto'; 
-        width: 98%;
-        text-align: center;
-    }
-    .locationBtn {
-        font-size: 12px !important;
-    }
-    .sideNavigation {
-        position: fixed;
-        top: unset;
-        bottom: 0;
-        margin: unset;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        width: 100%;
-    }
-    .sideNavigation > button {
-        margin: 5px;
-    }
-    .eventsList {
-        overflow-x: hidden;
-        width: 100%;
-        scroll-behavior: smooth;
-    }
+/*
+    Events wrapper for mobile phone
+*/
+.eventsWrapperMobile {
+    display: none;
 }
 
 .spinner {
@@ -315,4 +259,87 @@
     overflow: auto;
     font-size: 16px;
     text-align: justify;
+}
+
+.main-other-pages-text {
+    width: 65%;
+    margin: auto;
+}
+
+/* Events for the small (cell phone) screen */
+@media only screen and (max-width: 600px) {
+    .filters > div {
+        padding: 0 2px; 
+        font-weight: unset;
+        color:rgba(0, 0, 0, 0.7)
+    }
+    .selectorHiddenSmallScr { 
+        visibility: hidden;
+        display: none;
+    } 
+    .demandForm {
+        width: 100%;
+        padding: 0 75px;
+        background: rgba(255, 255, 255, 0.9);
+    }
+    .rentmain {
+        height: 400px !important;
+    }
+    .shadowBoxDiv {
+        width: 95% !important;
+        margin-top: 25px !important;
+    }
+    .rentImgsWrapper {
+        overflow: auto;
+        height: 70vh;
+        width: 100%;
+    }
+    .rentImgsDiv {
+        margin: 'auto'; 
+        width: 98%;
+        text-align: center;
+    }
+    .locationBtn {
+        font-size: 12px !important;
+    }
+    .sideNavigation {
+        position: fixed;
+        top: unset;
+        bottom: 0;
+        margin: unset;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+    }
+    .sideNavigation > button {
+        margin: 5px;
+    }
+    .eventsContainer {
+        display: none;
+    }
+    .eventsWrapperMobile {
+        display: block;
+        height: 60vh;
+        overflow: auto;
+    }
+    .eventMobile {
+        width: 350px;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+        padding: 5px;
+        border-right: 2px solid silver;
+    }
+    .eventContentMobile {
+        color:rgba(0, 0, 0, 0.75);
+        padding-left: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .main-other-pages-text {
+        width: 100%;
+        margin: auto;
+    }
 }

@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: center;
     padding: 2rem 1rem;
+    font-size: 1.2rem;
 }
 
 .bookingForm {
@@ -21,7 +22,14 @@
     align-items: center;
     justify-content: center;
     padding-top: 4rem;
-    text-align: justify;
+}
+
+.bookingBox {
+    z-index: 1;
+    text-align: center;
+    font-size: 22px;
+    border-radius: 15px;
+    padding: 50px;
 }
 
 .wrapper > div {
@@ -44,6 +52,18 @@ h1 {
 @media only screen and (max-width: 600px) {
     .wrapperBooking {
         justify-content: start;
+        font-size: 1rem;
+    }
+    .bookingImg {
+        z-index: -1;
+        position: relative;
+        top: 0;
+        left: 0;
+        min-width: 100%;
+        width: 100%;
+        min-height: none;
+        height: initial;
+        opacity: 1;
     }
     .wrapperBookingInfo {
         padding: 1rem 2rem;

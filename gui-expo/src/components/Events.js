@@ -140,7 +140,7 @@ function Events() {
                     </button>
                 </div>
 
-                <div className='eventsList' ref={eventsListRef}>
+                <div className='eventsList' ref={eventsListRef} style={ displayedEvents.length<4?{justifyContent:'center'}:{}}>
                     {
                         days.map(
                             day => (
@@ -195,10 +195,56 @@ function Events() {
             </div>
     )
 
+
+    const eventsWrapperMobile = (
+        <div className='eventsWrapperMobile'>
+        {
+            displayedEvents.map(
+                event => (
+                    <Link to={`/booking/${event.id}`} key={event.id}>
+                        <div className='eventMobile'>
+                            <div>
+                                <img
+                                    src={
+                                        imgs.filter(o => o.event === event.id).length>0 
+                                        ? `${server}${imgs.filter(o => o.event === event.id)[0].img}`
+                                        : '/img/notripimg.png'
+                                    }
+                                    alt="no-img"
+                                    width={150}
+                                    height={150}
+                                />
+                            </div>
+
+                            <div className='eventContentMobile'>
+                                <div>
+                                    <div><strong>{event.name}</strong></div>
+                                    <div>{event.end}</div>
+                                    <div>{event.date1}</div>
+                                </div>
+                                <div style={{color: 'rgb(20,150,180)'}}><strong>CHF {event.price}</strong></div>
+                            </div>
+                        </div>
+                    </Link>
+                )
+            )
+        }
+        </div>
+    )
+
+    
+    // compoents that just encompasses both wrappers above in a single component
+    const eventsWrapperFinal = (
+        <div>
+            <div>{eventsWrapper}</div>
+            <div>{eventsWrapperMobile}</div>
+        </div>
+    )
+
     return(
         <div className='events'>
             {filters}
-            { displayedEvents.length === 0 ? noEventsAlert : eventsWrapper }
+            { displayedEvents.length === 0 ? noEventsAlert : eventsWrapperFinal }
         </div>
     )
 }

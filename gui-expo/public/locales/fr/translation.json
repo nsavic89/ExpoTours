@@ -78,7 +78,7 @@
         "failed-msg": "Erreur. Essayer plus tard"
     },
     "demand": {
-        "title": "Damander un devis",
+        "title": "Demander un devis",
         "fullName": "Prénom et nom",
         "organization": "Société",
         "address": "Adresse",
