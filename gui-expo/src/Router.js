@@ -22,6 +22,8 @@ import GeneralConditions from "./views/GeneralConditions";
 import Invoice from "./admin/Invoice";
 import Payment2 from "./views/Payment2";
 import Legislation from "./views/Legislation";
+import NewGallery from "./admin/NewGallery";
+import UploadImages from "./admin/UploadImages";
 
 
 
@@ -46,8 +48,10 @@ function Router() {
             <Route path='/admin-login' element={<Login />} />
             <Route path='/admin' element={<Admin />} />
             <Route path='/admin-new-event/:id' element={<NewEventForm />} />
+            <Route path='/admin-new-gallery/:id' element={<NewGallery />} />
             <Route path='/admin-images/:id' element={<EventImages />} />
             <Route path='/admin/facture/:id' element={<Invoice />} />
+            <Route path='/admin-upload-imgs/:id' element={<UploadImages />} />
           </Routes>
         </BrowserRouter>
       </AppContextProvider>

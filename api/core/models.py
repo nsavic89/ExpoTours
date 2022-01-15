@@ -1,7 +1,15 @@
 from django.db import models
 
+# update 14-Jan-2022 ----------------
+# Galery - a list of images
+class Galery(models.Model):
+    name = models.CharField(max_length=50)
+    info = models.CharField(max_length=255, blank=True)
 
-
+class GaleryImg(models.Model):
+    galery = models.ForeignKey(Galery, on_delete=models.CASCADE)
+    img = models.ImageField()
+# -----------------------------------
 
 class Event(models.Model):
     name = models.CharField(max_length=255)

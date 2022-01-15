@@ -3,13 +3,15 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import viewsets
 from rest_framework.response import Response 
 from rest_framework import status
-from .models import Event, Traveller, EventImg, Demand
+from .models import Event, Traveller, EventImg, Demand, Galery, GaleryImg
 from django.core.mail import send_mail
 from .serializers import (
     EventSerializer,
     TravellerSerializer,
     EventImgSerializer,
-    DemandSerializer
+    DemandSerializer,
+    GalerySerializer,
+    GaleryImgSerializer
 )
 from rest_framework.permissions import AllowAny
 import stripe
@@ -24,6 +26,21 @@ stripe.api_key = "sk_test_QB0BvKFCZfTP4BZAz4R5oyvv00WPPDqfTa"
 
 
 # client side --------------------------------------------------------
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def client_galleries(request):
+    items = Galery.objects.all()
+    items_ser = GalerySerializer(items, many=True)
+    return Response(items_ser.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def client_gimgs(request):
+    items = GaleryImg.objects.all()
+    items_ser = GaleryImgSerializer(items, many=True)
+    return Response(items_ser.data, status=status.HTTP_200_OK)
+
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def client_events(request):
@@ -125,6 +142,14 @@ class EventImgViewSet(viewsets.ModelViewSet):
 class DemandViewSet(viewsets.ModelViewSet):
     queryset = Demand.objects.all()
     serializer_class = DemandSerializer
+
+class GaleryViewSet(viewsets.ModelViewSet):
+    queryset = Galery.objects.all()
+    serializer_class = GalerySerializer
+
+class GaleryImgViewSet(viewsets.ModelViewSet):
+    queryset = GaleryImg.objects.all()
+    serializer_class = GaleryImgSerializer
 
 @api_view(['POST'])
 def send_facture_devis(request, pk):

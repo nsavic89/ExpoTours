@@ -3,7 +3,7 @@
 import '../styles/home.css'
 import '../styles/admin.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalculator, faEdit, faExclamationTriangle, faImage, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faCalculator, faEdit, faExclamationTriangle, faImage, faTimes, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { Link, useNavigate } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
 import { message, Popconfirm } from 'antd'
@@ -34,6 +34,7 @@ export default function Admin() {
     const [events, setEvents] = useState([])
     const [demands, setDemands] = useState([])
     const [travellers, setTravellers] = useState([])
+    const [galery, setGalery] = useState([])
     const [state, setState] = useState(false) // render content
     const [selectedEvent, setSelectedEvent] = useState(0)
 
@@ -47,13 +48,15 @@ export default function Admin() {
         Promise.all([
             axios.get(`${server}/events/`, {headers:headers}),
             axios.get(`${server}/travellers/`, {headers:headers}),
-            axios.get(`${server}/demands/`, {headers:headers})
+            axios.get(`${server}/demands/`, {headers:headers}),
+            axios.get(`${server}/galleries/`, {headers:headers})
         ])
         .then(
             res => {
                 setEvents(res[0].data);
                 setTravellers(res[1].data);
                 setDemands(res[2].data);
+                setGalery(res[3].data);
                 setState(true);
             })
         .catch(
@@ -382,10 +385,42 @@ export default function Admin() {
     )
 
 
+    // Gallery
+    const galeryDiv = (
+        <div>  
+            <div className='header'>
+                <h1>Galeries</h1>
+                <div><Link to='/admin-new-gallery/0'>
+                    <button type='button' className='btnPrimary'>Créer nouvelle</button>
+                </Link></div>
+            </div>
+            <div>
+                {galery.length===0 ? <div className='alertWarning' style={{ marginTop: 25 }}>Aucune galerie trouvée</div> : ''}
+            </div>
+            <div>
+                {galery.map(
+                    item => (
+                        <div key={item.id} className='album'>
+                            <button type='button'><FontAwesomeIcon icon={faTimes} /></button> 
+                            <Link to={`/admin-upload-imgs/${item.id}`}>
+                                <button style={{ color: 'orangered' }} type='button'><FontAwesomeIcon icon={faImage} /> Télécharger images</button>
+                            </Link>
+                            <span style={{ paddingLeft: 10 }}><strong>{item.name}</strong></span>
+
+                            <p><i>{item.info}</i></p>
+                        </div>
+                    )
+                )}
+            </div>
+        </div>
+    )
+
+
     const views = {
         Evenements: eventsDiv,
         Demandes: demandsDiv,
-        Voyageurs: travellersDiv
+        Voyageurs: travellersDiv,
+        Galeries: galeryDiv
     }
     
 
@@ -393,7 +428,7 @@ export default function Admin() {
         <div className='wrapper-admin'>
             <div className='nav-admin'>
                 {
-                    ['Evenements', 'Demandes', 'Voyageurs'].map(
+                    ['Evenements', 'Demandes', 'Voyageurs', 'Galeries'].map(
                         item => (
                             <button 
                                 className='btnNav'

@@ -5,6 +5,8 @@ from .views import (
     TravellerViewSet,
     EventImgViewSet,
     DemandViewSet,
+    GaleryImgViewSet,
+    GaleryViewSet,
     send_facture_devis,
     send_payment_invitation,
     token_verification,
@@ -12,6 +14,8 @@ from .views import (
     client_events_imgs,
     client_booking,
     client_demand,
+    client_gimgs,
+    client_galleries,
     create_checkout_session,
     create_checkout_session2
 )
@@ -24,11 +28,15 @@ router.register(r'events', EventViewSet)
 router.register(r'travellers', TravellerViewSet)
 router.register(r'imgs', EventImgViewSet)
 router.register(r'demands', DemandViewSet)
+router.register(r'galleries', GaleryViewSet)
+router.register(r'gimgs', GaleryImgViewSet)
 
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
     # CLIENT SIDE
+    path('client-gimgs/', client_gimgs),
+    path('client-galleries/', client_galleries),
     path('client-events/', client_events),
     path('client-events-imgs/', client_events_imgs),
     path('client-booking/', client_booking),

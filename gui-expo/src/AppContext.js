@@ -20,7 +20,9 @@ export default function AppContextProvider(props) {
     useEffect(() => {
         const promises = [
             axios.get(`${API}/client-events/`),
-            axios.get(`${API}/client-events-imgs/`)
+            axios.get(`${API}/client-events-imgs/`),
+            axios.get(`${API}/client-galleries/`),
+            axios.get(`${API}/client-gimgs/`)
         ]
         
         Promise.all(promises)
@@ -28,6 +30,8 @@ export default function AppContextProvider(props) {
             setState({
                 events: res[0].data,
                 eventsImgs: res[1].data,
+                galleries: res[2].data,
+                gimgs: res[3].data,
                 loaded: true
             })
         })
