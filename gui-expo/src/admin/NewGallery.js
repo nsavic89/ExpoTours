@@ -6,6 +6,7 @@ import { AppContext } from "../AppContext"
 
 
 export default function NewGallery() {
+    const context = useContext(AppContext)
     const API = useContext(AppContext).API
     const router = useNavigate()
 
@@ -26,6 +27,7 @@ export default function NewGallery() {
                         }} 
                     ).then(
                         () => {
+                            context.update();
                             message.success('Ajouter avec succès');
                             router('/admin');
                         }
