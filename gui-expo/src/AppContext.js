@@ -7,7 +7,7 @@ export default function AppContextProvider(props) {
 
     // context data
     const [ update, runUpdate ] = useState(0);
-    const [ state, setState ] = useState({})
+    const [ state, setState ] = useState({galleries: [], gimgs: []})
     
     // API URL
     let API = 'https://expotours.ch';

@@ -24,6 +24,7 @@ import Payment2 from "./views/Payment2";
 import Legislation from "./views/Legislation";
 import NewGallery from "./admin/NewGallery";
 import UploadImages from "./admin/UploadImages";
+import Gallery from "./views/Gallery";
 
 
 
@@ -41,6 +42,7 @@ function Router() {
             <Route path='/contact' element={<Contact />} />
             <Route path='/general-conditions' element={<GeneralConditions />} />
             <Route path='/legislation' element={<Legislation />} />
+            <Route path='/gallery/:id' element={<Gallery />} />
             <Route path='/success' element={<Success />} />
             <Route path='/warning' element={<Warning />} />
             <Route path='/payment/:id' element={<Payment />} />

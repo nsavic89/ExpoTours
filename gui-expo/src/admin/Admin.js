@@ -401,7 +401,22 @@ export default function Admin() {
                 {galery.map(
                     item => (
                         <div key={item.id} className='album'>
-                            <button type='button'><FontAwesomeIcon icon={faTimes} /></button> 
+                            <Popconfirm
+                                                title="Vous êtes sûr?"
+                                                onConfirm={() => axios.delete(
+                                                        `${server}/galleries/${item.id}/`, {headers:headers}
+                                                    ).then(() => {
+                                                        message.warning("Gallerie effacée")
+                                                        setGalery(galery.filter(o => o.id !== item.id))
+                                                    }).catch(() => message.warning("Une erreur s'est produit"))
+                                                }
+                                                okText="Oui"
+                                                cancelText="Non"
+                                            >
+                                                <button type="button" className='btnDanger'>
+                                                    <FontAwesomeIcon icon={faTrashAlt} />
+                                                </button>
+                                            </Popconfirm>
                             <Link to={`/admin-upload-imgs/${item.id}`}>
                                 <button style={{ color: 'orangered' }} type='button'><FontAwesomeIcon icon={faImage} /> Télécharger images</button>
                             </Link>

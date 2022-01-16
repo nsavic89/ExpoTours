@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import MainLayout from '../components/MainLayout'
 import '../styles/home.css'
@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendar, faChevronDown, faHome, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import Events from '../components/Events'
 import Demand from '../components/Demand'
+import { AppContext } from '../AppContext'
+import { Link } from 'react-router-dom'
 
 
 
@@ -16,6 +18,12 @@ export default function ClientHome(props){
 	const startRef = useRef(null)
 	const eventsRef = useRef(null) // allow scrolling to events
 	const demandRef = useRef(null)
+
+	// context - images - gallery -- update 16JAN2022
+	const galleries = useContext(AppContext).data.galleries
+	const gimgs = useContext(AppContext).data.gimgs
+	const server = useContext(AppContext).API
+	console.log(useContext(AppContext))
 
 	const scrollView = (n) => {
 		if (n<1 || n>3) {
@@ -35,33 +43,62 @@ export default function ClientHome(props){
         <div>
             <MainLayout>
 				<div className='main' ref={startRef}>
-					<div style={{
-							backgroundColor: 'rgba(200, 200, 200, 0.25)',
-							borderRadius: 15,
-							padding: 25,
-							marginBottom: 25
-						}}
-					>
-						<img
-							src="/logo_light.png"
-							width={200}
-							height={225}
-							alt="No logo"
-						/>
-					</div>
-					<div><button 
-						className='button' 
-						onClick={() => scrollView(2)}
-					>
-						{t('home.discover')} <FontAwesomeIcon icon={faChevronDown} size="xs" />
-					</button></div>
+						<div style={{
+								backgroundColor: 'rgba(200, 200, 200, 0.25)',
+								borderRadius: 15,
+								padding: 10,
+								height: galleries.length===0 || gimgs.length===0 ? 270 : 170,
+								width: galleries.length===0 || gimgs.length===0 ? 270 : 170,
+							}}
+						>
+							<img
+								src="/logo_light.png"
+								width={galleries.length===0 || gimgs.length===0 ? 250 : 150}
+								height={galleries.length===0 || gimgs.length===0 ? 240 : 150}
+								alt="No logo"
+							/>
+						</div>
 
-					<div><button
-						className='button'
-						onClick={() => scrollView(3)}
-					>
-						{t('home.ask')} <FontAwesomeIcon icon={faChevronDown} size="xs" />
-					</button></div>
+					{
+						galleries.length===0 || gimgs.length===0 ?
+						'' : <div className='galleries'>
+						{galleries.map(
+							gallery => (
+								<Link to={`/gallery/${gallery.id}`}>
+									<div className='gallery'>
+										<div className='galleryImg'>
+											<img src={gimgs.filter(o => o.galery===gallery.id).length===0 ?
+												'/img/notripimg.png' :
+												`${server}${gimgs.filter(o => o.galery===gallery.id)[0].img}`} 
+												alt='x' 
+												width={198}
+												height={172}
+												style={{ borderRadius: 7 }}
+											/>
+										</div>
+										<div className='galleryName'>{gallery.name}</div>
+									</div>
+								</Link>
+							)
+						)}
+						</div>
+					}
+
+					<div className='mainLogoButtons'>
+						<div><button 
+							className='button' 
+							onClick={() => scrollView(2)}
+						>
+							{t('home.discover')} <FontAwesomeIcon icon={faChevronDown} size="xs" />
+						</button></div>
+						
+						<div><button
+							className='button'
+							onClick={() => scrollView(3)}
+						>
+							{t('home.ask')} <FontAwesomeIcon icon={faChevronDown} size="xs" />
+						</button></div>
+					</div>
 				</div>
 
 				<div ref={eventsRef}>
